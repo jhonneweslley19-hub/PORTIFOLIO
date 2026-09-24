@@ -1,6 +1,8 @@
-# Portfólio acadêmico · Medicina
+# Portfólio · Jhonne Weslley
 
-Site pessoal de **Jhonne Weslley**, estudante de Medicina: disciplinas, jornada acadêmica, flashcards interativos, produções e repositórios do GitHub.
+Portfólio pessoal de **Jhonne Weslley**, estudante de **Engenharia de Software**: projetos, stack, jornada e contato.
+
+🔗 **Site:** https://jhonneweslley19-hub.github.io/PORTIFOLIO/
 
 ## Tecnologia
 
@@ -8,11 +10,11 @@ Sem framework e sem etapa de build: HTML, CSS e **JavaScript moderno (ES Modules
 
 | Recurso | Onde |
 |---|---|
-| Conteúdo em um único arquivo de dados | `js/data.js` |
-| Templates seguros (escape automático de HTML) | `js/dom.js` |
-| Traçado de ECG animado em `<canvas>` | `js/ecg.js` |
-| Flashcards 3D (teclado, toque e filtros por disciplina) | `js/flashcards.js` |
-| Repositórios carregados ao vivo da API do GitHub | `js/github.js` |
+| Todo o conteúdo em um único arquivo de dados | `js/data.js` |
+| Templates seguros com escape automático de HTML (tagged templates) | `js/dom.js` |
+| Rede de nós animada em `<canvas>` que reage ao cursor + efeito de digitação | `js/network.js` |
+| **Terminal interativo** (histórico ↑/↓, autocompletar com Tab, Ctrl+L) | `js/terminal.js` |
+| Repositórios carregados ao vivo da API do GitHub, com cache | `js/github.js` |
 | Paleta de comandos <kbd>Ctrl</kbd>+<kbd>K</kbd> | `js/palette.js` |
 | Tema claro/escuro com View Transitions API | `js/main.js` |
 | Barra de progresso com CSS scroll-driven animations | `css/styles.css` |
@@ -20,19 +22,19 @@ Sem framework e sem etapa de build: HTML, CSS e **JavaScript moderno (ES Modules
 | PWA: instalável e funciona offline | `manifest.webmanifest`, `sw.js` |
 | Deploy automático no GitHub Pages | `.github/workflows/deploy.yml` |
 
+Acessibilidade: navegação por teclado, link "pular para o conteúdo", `aria-live` e suporte a `prefers-reduced-motion`.
+
 ## Como editar
 
-Abra **`js/data.js`** e altere os textos. Campos vazios (`""`) e listas vazias (`[]`) são ocultados automaticamente.
+Abra **`js/data.js`**. Campos vazios (`""`) e listas vazias (`[]`) são ocultados automaticamente.
 
-- `profile` — nome, faculdade, cidade, e-mail, links (GitHub, LinkedIn, Lattes)
-- `disciplines` — disciplinas e referências
-- `timeline` — linha do tempo acadêmica
-- `works` — resumos, mapas mentais, trabalhos (com link para PDF/Drive)
-- `certificates` — cursos, congressos, ligas
-- `flashcards` — perguntas de revisão (**sempre com a referência**)
-- `tools` — ferramentas de estudo
+- `profile`: nome, semestre, faculdade, cidade, frases do topo, e-mail e links
+- `stack`: tecnologias, com status `uso` ou `estudando`
+- `projects`: projetos em destaque (os do GitHub aparecem sozinhos)
+- `timeline`: linha do tempo
+- `certificates`: cursos e certificados
 
-Ao publicar uma alteração nos arquivos, aumente a versão em `sw.js` (`portfolio-v1` → `portfolio-v2`) para que visitantes recebam a versão nova.
+Depois de publicar mudanças, aumente a versão em `sw.js` (`portfolio-v2` → `portfolio-v3`) para que os visitantes recebam a versão nova.
 
 ## Rodar localmente
 
@@ -42,10 +44,10 @@ npx serve .
 python3 -m http.server 8000
 ```
 
-Abra `http://localhost:8000`. (Abrir o `index.html` direto pelo arquivo não funciona, porque ES Modules exigem um servidor.)
+Abra `http://localhost:8000`. Abrir o `index.html` direto do arquivo não funciona, porque ES Modules exigem um servidor.
 
 ## Publicar
 
 1. Faça o merge na branch `main`.
 2. No GitHub: **Settings → Pages → Source: GitHub Actions**.
-3. O site fica disponível em `https://jhonneweslley19-hub.github.io/PORTIFOLIO/`.
+3. O site fica em `https://jhonneweslley19-hub.github.io/PORTIFOLIO/`.

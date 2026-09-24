@@ -1,27 +1,30 @@
 /** Paleta de comandos estilo “Ctrl/⌘ + K”. */
-export function initPalette({ disciplines, profile, toast }) {
+export function initPalette({ profile, projects, copyEmail, runCommand }) {
   const dialog = document.querySelector(".palette");
   const input = dialog.querySelector("input");
   const list = dialog.querySelector("ul");
 
   const goto = (id) => () => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   const open = (url) => () => window.open(url, "_blank", "noopener");
+  const inTerminal = (cmd) => () => {
+    goto("terminal")();
+    runCommand(cmd);
+  };
 
   const commands = [
     { label: "Sobre", hint: "seção", run: goto("sobre") },
-    { label: "Disciplinas", hint: "seção", run: goto("disciplinas") },
-    { label: "Jornada acadêmica", hint: "seção", run: goto("jornada") },
-    { label: "Flashcards", hint: "seção", run: goto("flashcards") },
-    { label: "Produções", hint: "seção", run: goto("producoes") },
+    { label: "Stack", hint: "seção", run: goto("stack") },
+    { label: "Projetos", hint: "seção", run: goto("projetos") },
+    { label: "Terminal", hint: "seção", run: goto("terminal") },
+    { label: "Jornada", hint: "seção", run: goto("jornada") },
     { label: "Contato", hint: "seção", run: goto("contato") },
-    ...disciplines.map((d) => ({ label: `${d.icon} ${d.name}`, hint: "disciplina", run: goto("disciplinas") })),
+    ...projects.filter((p) => p.repo || p.demo)
+      .map((p) => ({ label: p.title, hint: "projeto", run: open(p.demo || p.repo) })),
+    { label: "Rodar “help” no terminal", hint: "terminal", run: inTerminal("help") },
     { label: "Alternar tema claro/escuro", hint: "ação", run: () => document.getElementById("theme-toggle").click() },
-    {
-      label: "Copiar e-mail", hint: "ação",
-      run: async () => { try { await navigator.clipboard.writeText(profile.email); toast("E-mail copiado ✓"); } catch {} },
-    },
+    { label: "Copiar e-mail", hint: "ação", run: copyEmail },
     ...Object.entries(profile.links).filter(([, u]) => u)
-      .map(([k, u]) => ({ label: `Abrir ${k[0].toUpperCase() + k.slice(1)}`, hint: "link", run: open(u) })),
+      .map(([k, u]) => ({ label: `Abrir ${k === "github" ? "GitHub" : k === "linkedin" ? "LinkedIn" : k}`, hint: "link", run: open(u) })),
   ];
 
   let results = commands;
@@ -57,8 +60,9 @@ export function initPalette({ disciplines, profile, toast }) {
   });
 
   input.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowDown") { e.preventDefault(); active = (active + 1) % Math.max(results.length, 1); draw(); }
-    if (e.key === "ArrowUp") { e.preventDefault(); active = (active - 1 + results.length) % Math.max(results.length, 1); draw(); }
+    const n = Math.max(results.length, 1);
+    if (e.key === "ArrowDown") { e.preventDefault(); active = (active + 1) % n; draw(); }
+    if (e.key === "ArrowUp") { e.preventDefault(); active = (active - 1 + n) % n; draw(); }
     if (e.key === "Enter") { e.preventDefault(); exec(results[active]); }
   });
 

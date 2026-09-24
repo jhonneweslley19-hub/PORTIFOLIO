@@ -3,22 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Jhonne Weslley · Medicina</title>
-  <meta name="description" content="Portfólio acadêmico de Jhonne Weslley, estudante de Medicina — disciplinas, produções, flashcards e projetos." />
-  <meta name="theme-color" content="#0b1215" media="(prefers-color-scheme: dark)" />
-  <meta name="theme-color" content="#f5f8f7" media="(prefers-color-scheme: light)" />
+  <title>Jhonne Weslley · Engenharia de Software</title>
+  <meta name="description" content="Portfólio de Jhonne Weslley, estudante de Engenharia de Software: projetos, stack, jornada e contato." />
+  <meta name="theme-color" content="#0a0d14" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#f6f7fb" media="(prefers-color-scheme: light)" />
   <meta name="color-scheme" content="dark light" />
-  <meta name="view-transition" content="same-origin" />
 
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Jhonne Weslley · Medicina" />
-  <meta property="og:description" content="Portfólio acadêmico de um estudante de Medicina guiado por evidências." />
+  <meta property="og:title" content="Jhonne Weslley · Engenharia de Software" />
+  <meta property="og:description" content="Projetos, stack e jornada de um estudante de Engenharia de Software." />
 
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
 
   <script>
@@ -37,16 +36,15 @@
 
   <header class="nav">
     <a class="brand" href="#topo" aria-label="Início">
-      <svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><path d="M2 17h7l3-8 5 15 3-7h10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <span data-bind="initials">JW</span>
+      <span aria-hidden="true">&lt;</span><span data-bind="initials">JW</span><span aria-hidden="true">/&gt;</span>
     </a>
     <nav aria-label="Seções">
       <ul>
         <li><a href="#sobre">Sobre</a></li>
-        <li><a href="#disciplinas">Disciplinas</a></li>
+        <li><a href="#stack">Stack</a></li>
+        <li><a href="#projetos">Projetos</a></li>
+        <li><a href="#terminal">Terminal</a></li>
         <li><a href="#jornada">Jornada</a></li>
-        <li><a href="#flashcards">Flashcards</a></li>
-        <li><a href="#producoes">Produções</a></li>
         <li><a href="#contato">Contato</a></li>
       </ul>
     </nav>
@@ -64,14 +62,18 @@
   <main id="conteudo">
     <!-- HERO -->
     <section class="hero" id="topo">
-      <canvas class="ecg" aria-hidden="true"></canvas>
+      <canvas class="net" aria-hidden="true"></canvas>
       <div class="hero-inner">
-        <p class="eyebrow"><span class="pulse" aria-hidden="true"></span> <span data-bind="role"></span> · <span data-bind="semester"></span></p>
-        <h1><span data-bind="name"></span><em>medicina, com método.</em></h1>
+        <p class="eyebrow"><span class="pulse" aria-hidden="true"></span> <span data-bind="eyebrow"></span></p>
+        <h1>
+          <span class="hello">Olá, eu sou</span>
+          <span data-bind="name"></span>
+          <span class="typed" aria-live="off"><span class="typed-text"></span><span class="caret" aria-hidden="true"></span></span>
+        </h1>
         <p class="lead" data-bind="tagline"></p>
         <div class="cta">
-          <a class="btn primary" href="#producoes">Ver produções</a>
-          <a class="btn ghost" href="#contato">Entrar em contato</a>
+          <a class="btn primary" href="#projetos">Ver projetos</a>
+          <a class="btn ghost" href="#terminal"><span class="mono">&gt;_</span> Abrir terminal</a>
         </div>
         <dl class="stats" data-render="stats"></dl>
       </div>
@@ -80,93 +82,80 @@
     <!-- SOBRE -->
     <section id="sobre" class="section reveal">
       <header class="section-head">
-        <span class="kicker">01 — Sobre</span>
+        <span class="kicker">01. sobre()</span>
         <h2>Quem sou</h2>
       </header>
       <div class="about">
         <div class="about-text" data-render="about"></div>
-        <aside class="card principles">
-          <h3>Princípios de estudo</h3>
-          <ul>
-            <li><strong>Fundamentos primeiro.</strong> Estrutura e função antes da doença.</li>
-            <li><strong>Evidência acima de opinião.</strong> Diretrizes, revisões sistemáticas e livros-texto de referência.</li>
-            <li><strong>Fontes rastreáveis.</strong> Todo conteúdo publicado indica sua referência.</li>
-          </ul>
+        <aside class="card code-card" aria-label="Resumo em código">
+          <div class="window-bar"><i></i><i></i><i></i><span>jhonne.js</span></div>
+          <pre><code data-render="about-code"></code></pre>
         </aside>
       </div>
     </section>
 
-    <!-- DISCIPLINAS -->
-    <section id="disciplinas" class="section reveal">
+    <!-- STACK -->
+    <section id="stack" class="section reveal">
       <header class="section-head">
-        <span class="kicker">02 — Disciplinas</span>
-        <h2>O que estou estudando</h2>
-        <p>Ciências básicas do ciclo inicial e as referências que uso em cada uma.</p>
+        <span class="kicker">02. stack()</span>
+        <h2>Tecnologias</h2>
+        <p>O que já uso nos meus projetos e o que estou estudando agora.</p>
       </header>
-      <div class="grid disciplines" data-render="disciplines"></div>
+      <div class="grid stack" data-render="stack"></div>
+    </section>
+
+    <!-- PROJETOS -->
+    <section id="projetos" class="section reveal">
+      <header class="section-head">
+        <span class="kicker">03. projetos()</span>
+        <h2>Projetos</h2>
+      </header>
+      <div class="grid projects" data-render="projects"></div>
+
+      <h3 class="sub">Direto do GitHub <span class="live">ao vivo</span></h3>
+      <div class="grid repos" data-render="repos" aria-busy="true">
+        <div class="card skeleton"></div><div class="card skeleton"></div><div class="card skeleton"></div>
+      </div>
+    </section>
+
+    <!-- TERMINAL -->
+    <section id="terminal" class="section reveal">
+      <header class="section-head">
+        <span class="kicker">04. terminal()</span>
+        <h2>Terminal interativo</h2>
+        <p>Explore o portfólio por linha de comando. Digite <code>help</code> para começar.</p>
+      </header>
+      <div class="term card" role="region" aria-label="Terminal interativo">
+        <div class="window-bar"><i></i><i></i><i></i><span>visitante@jhonne: ~</span></div>
+        <div class="term-body">
+          <div class="term-out" aria-live="polite"></div>
+          <form class="term-line">
+            <label for="term-in" class="prompt">visitante@jhonne:~$</label>
+            <input id="term-in" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="send" />
+          </form>
+        </div>
+      </div>
     </section>
 
     <!-- JORNADA -->
     <section id="jornada" class="section reveal">
       <header class="section-head">
-        <span class="kicker">03 — Jornada</span>
-        <h2>Linha do tempo acadêmica</h2>
+        <span class="kicker">05. jornada()</span>
+        <h2>Jornada</h2>
       </header>
       <ol class="timeline" data-render="timeline"></ol>
-    </section>
-
-    <!-- FLASHCARDS -->
-    <section id="flashcards" class="section reveal">
-      <header class="section-head">
-        <span class="kicker">04 — Revisão ativa</span>
-        <h2>Flashcards interativos</h2>
-        <p>Clique no cartão (ou pressione <kbd>Espaço</kbd>) para ver a resposta. Use <kbd>←</kbd> <kbd>→</kbd> para navegar.</p>
-      </header>
-      <div class="deck">
-        <div class="deck-filters" role="group" aria-label="Filtrar por disciplina" data-render="deck-filters"></div>
-        <button class="flashcard" type="button" aria-live="polite">
-          <span class="face front"><span class="tag"></span><span class="q"></span><span class="hint">toque para revelar</span></span>
-          <span class="face back"><span class="tag"></span><span class="a"></span><span class="ref"></span></span>
-        </button>
-        <div class="deck-controls">
-          <button class="icon-btn" type="button" data-deck="prev" aria-label="Cartão anterior">←</button>
-          <span class="deck-count" aria-live="polite"></span>
-          <button class="icon-btn" type="button" data-deck="shuffle" aria-label="Embaralhar">⤮</button>
-          <button class="icon-btn" type="button" data-deck="next" aria-label="Próximo cartão">→</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- PRODUÇÕES -->
-    <section id="producoes" class="section reveal">
-      <header class="section-head">
-        <span class="kicker">05 — Produções</span>
-        <h2>Resumos, trabalhos e projetos</h2>
-      </header>
-      <div class="grid works" data-render="works"></div>
-      <div class="empty" data-empty="works" hidden>
-        <p>Em breve: resumos, mapas mentais e trabalhos do curso serão publicados aqui.</p>
-      </div>
 
       <div data-section="certificates" hidden>
-        <h3 class="sub">Certificados e eventos</h3>
+        <h3 class="sub">Certificados e cursos</h3>
         <ul class="certs" data-render="certificates"></ul>
       </div>
-
-      <h3 class="sub">Repositórios no GitHub</h3>
-      <div class="grid repos" data-render="repos" aria-busy="true">
-        <div class="card skeleton"></div><div class="card skeleton"></div><div class="card skeleton"></div>
-      </div>
-
-      <h3 class="sub">Ferramentas</h3>
-      <ul class="chips" data-render="tools"></ul>
     </section>
 
     <!-- CONTATO -->
     <section id="contato" class="section reveal contact">
-      <span class="kicker">06 — Contato</span>
-      <h2>Vamos conversar?</h2>
-      <p>Aberto a ligas acadêmicas, iniciação científica, monitorias e projetos que unam medicina e tecnologia.</p>
+      <span class="kicker">06. contato()</span>
+      <h2>Vamos construir algo?</h2>
+      <p data-bind="openTo"></p>
       <div class="contact-actions">
         <button class="btn primary" type="button" data-copy-email>
           <span data-bind="email"></span>
@@ -178,13 +167,13 @@
   </main>
 
   <footer class="footer">
-    <p>© <span data-bind="year"></span> <span data-bind="name"></span>. Conteúdo educacional — não substitui avaliação médica.</p>
+    <p>© <span data-bind="year"></span> <span data-bind="name"></span> · feito com JavaScript puro · <a href="https://github.com/jhonneweslley19-hub/PORTIFOLIO" target="_blank" rel="noopener">código-fonte</a></p>
   </footer>
 
   <!-- Paleta de comandos (Ctrl/⌘ + K) -->
   <dialog class="palette" aria-label="Busca rápida">
     <form method="dialog">
-      <input type="search" placeholder="Buscar seção, disciplina ou ação…" autocomplete="off" aria-label="Buscar" />
+      <input type="search" placeholder="Buscar seção, projeto ou ação…" autocomplete="off" aria-label="Buscar" />
       <ul role="listbox"></ul>
       <p class="palette-hint"><kbd>↑</kbd><kbd>↓</kbd> navegar · <kbd>Enter</kbd> abrir · <kbd>Esc</kbd> fechar</p>
     </form>

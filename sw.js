@@ -1,9 +1,9 @@
 // Service worker: funciona offline após a primeira visita.
 // Estratégia "stale-while-revalidate" para arquivos do próprio site.
-const CACHE = "portfolio-v1";
+const CACHE = "portfolio-v2";
 const CORE = [
   "./", "index.html", "css/styles.css", "manifest.webmanifest", "assets/favicon.svg",
-  "js/main.js", "js/data.js", "js/dom.js", "js/ecg.js", "js/flashcards.js", "js/github.js", "js/palette.js",
+  "js/main.js", "js/data.js", "js/dom.js", "js/network.js", "js/terminal.js", "js/github.js", "js/palette.js",
 ];
 
 self.addEventListener("install", (e) => {
