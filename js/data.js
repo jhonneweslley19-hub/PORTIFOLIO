@@ -78,7 +78,7 @@ export const projects = [
     ],
     tags: ["JavaScript", "Supabase", "PostgreSQL", "Edge Functions", "QR Code"],
     uses: ["HTML", "CSS", "Git e GitHub", "Desenvolvimento com IA"],
-    repo: "", // link do repositório público, quando estiver criado
+    repo: "https://github.com/jhonneweslley19-hub/PLANOGRAMAATUALIZADO",
     demo: "",
   },
   {
