@@ -61,13 +61,13 @@ export const projects = [
     demo: "", // URL do app no ar, quando quiser divulgar
   },
   {
-    slug: "mellzinha",
+    slug: "saas-perfumaria",
     visual: "pos",
-    title: "Mellzinha · Gestão Comercial",
+    title: "SaaS de Vendas · Perfumaria",
     summary:
-      "Sistema web para pequenos negócios controlarem vendas, estoque, clientes, despesas e relatórios, no computador ou no celular.",
+      "Sistema web de vendas feito para uma perfumaria: ponto de venda, estoque, clientes, despesas e relatórios, no computador ou no celular.",
     problem:
-      "Pequenos comércios costumam controlar vendas e estoque em cadernos ou planilhas soltas, sem visão clara do que entra, do que sai e do que está acabando.",
+      "Uma perfumaria de pequeno porte precisava sair do controle em cadernos e planilhas soltas e ter visão clara do que vende, do que entra e do que está acabando no estoque.",
     solution:
       "Um sistema com ponto de venda, estoque com leitor de código de barras pela câmera do celular, cadastro de clientes, despesas, dashboard com gráficos e relatórios em PDF, com uma API em Node.js no Firebase.",
     highlights: [
