@@ -14,7 +14,7 @@ for (const path of PUBLIC) {
 }
 
 // Cada deploy ganha uma versão nova → o cache offline antigo é descartado sozinho
-const version = (process.env.GITHUB_SHA || Date.now().toString(36)).slice(0, 8);
+const version = (process.env.GITHUB_SHA || process.env.VERCEL_GIT_COMMIT_SHA || Date.now().toString(36)).slice(0, 8);
 const sw = `${OUT}/sw.js`;
 writeFileSync(sw, readFileSync(sw, "utf8").replace(/const VERSION = "dev";/, `const VERSION = "${version}";`));
 
