@@ -24,6 +24,28 @@ const VISUALS = {
         <div class="mock-row"><span>${n}</span><i style="--w:${[70, 55, 35, 40, 50, 30, 45][i]}%"></i><i style="--w:${[60, 45, 30, 35, 40, 25, 40][i]}%"></i><i style="--w:${[40, 30, 20, 25, 35, 15, 30][i]}%"></i></div>`)}
       <p class="mock-foot">*%VD com base em uma dieta de 2.000 kcal</p>
     </div>`,
+  qr: () => {
+    // QR Code decorativo: padrões de posição nos cantos + miolo pseudoaleatório fixo
+    const n = 21;
+    const finder = (r, c) => [[0, 0], [0, n - 7], [n - 7, 0]].some(([fr, fc]) => {
+      const y = r - fr, x = c - fc;
+      if (y < 0 || x < 0 || y > 6 || x > 6) return null;
+      return y === 0 || y === 6 || x === 0 || x === 6 || (y >= 2 && y <= 4 && x >= 2 && x <= 4);
+    });
+    const inFinder = (r, c) => [[0, 0], [0, n - 8], [n - 8, 0]].some(([fr, fc]) => r >= fr && r < fr + 8 && c >= fc && c < fc + 8);
+    const cells = Array.from({ length: n * n }, (_, i) => {
+      const r = Math.floor(i / n), c = i % n;
+      return inFinder(r, c) ? finder(r, c) : ((r * 7 + c * 13 + r * c) % 5) < 2;
+    });
+    return html`
+    <div class="mock mock-qr">
+      <div class="shelf">${["", "", ""].map((_, i) => html`<div class="shelf-row">${Array.from({ length: 5 }, (_, j) => html`<i style="--h:${[70, 90, 60, 80, 75][(i + j) % 5]}%; --c:${j % 3}"></i>`)}</div>`)}</div>
+      <div class="qr-card">
+        <div class="qr">${cells.map((on) => html`<i${on ? { raw: ' class="on"' } : ""}></i>`)}</div>
+        <p><b>Gôndola 12</b><span>Mercearia</span></p>
+      </div>
+    </div>`;
+  },
   pos: () => html`
     <div class="mock mock-pos">
       <div class="mock-bar"><i></i><i></i><i></i><span>Dashboard</span></div>

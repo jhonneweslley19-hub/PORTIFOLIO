@@ -36,7 +36,7 @@ export const profile = {
  * `problem` / `solution`: aparecem no painel "Ver detalhes".
  * `highlights`: 2–4 frases curtas sobre o que você fez / decisões técnicas.
  * `uses`: tecnologias usadas que não aparecem nas etiquetas do cartão.
- * `visual`: ilustração do cartão — "label" (tabela nutricional) | "pos" (painel de vendas) | "terminal" | "" (nenhuma).
+ * `visual`: ilustração do cartão — "label" (tabela nutricional) | "qr" (gôndola + QR Code) | "pos" (painel de vendas) | "terminal" | "" (nenhuma).
  */
 export const projects = [
   {
@@ -59,6 +59,27 @@ export const projects = [
     uses: ["PostgreSQL", "Edge Functions", "HTML", "CSS", "Git e GitHub", "Desenvolvimento com IA"], // tecnologias de bastidor (ligam competências a projetos)
     repo: "https://github.com/jhonneweslley19-hub/APP-CALCULADORANUTRI",
     demo: "", // URL do app no ar, quando quiser divulgar
+  },
+  {
+    slug: "planograma",
+    visual: "qr",
+    title: "Planogramas com QR Code",
+    summary:
+      "Plataforma web usada em um supermercado para organizar as gôndolas: cada gôndola tem um QR Code que mostra o planograma correto no celular do repositor.",
+    problem:
+      "Os repositores precisavam procurar planogramas impressos ou pedir informação ao setor responsável para saber como montar cada gôndola.",
+    solution:
+      "Um sistema em que o administrador cadastra departamentos e envia as imagens dos planogramas, e cada gôndola ganha um QR Code com etiqueta para impressão. Ao escanear, o repositor vê o layout na hora.",
+    highlights: [
+      "QR Code exclusivo por gôndola, com consulta instantânea pelo celular e etiquetas prontas para imprimir.",
+      "Controle de acesso por níveis (administrador e repositor) com Row Level Security no Supabase.",
+      "Login por apelido e criação e redefinição de usuários via Edge Functions, sem expor a chave de serviço.",
+      "Cabeçalhos de segurança, CSP e bibliotecas hospedadas no próprio projeto.",
+    ],
+    tags: ["JavaScript", "Supabase", "PostgreSQL", "Edge Functions", "QR Code"],
+    uses: ["HTML", "CSS", "Git e GitHub", "Desenvolvimento com IA"],
+    repo: "", // link do repositório público, quando estiver criado
+    demo: "",
   },
   {
     slug: "saas-perfumaria",
