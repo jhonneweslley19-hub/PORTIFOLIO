@@ -125,7 +125,8 @@ test("projetos em destaque mostram resumo, destaques e links", async ({ page }) 
   await page.goto("/#projetos");
   const first = page.locator(".project").first();
   await expect(first.locator("h3")).toHaveText("Calculadora Nutri");
-  await expect(first.locator(".highlights li")).toHaveCount(4);
+  await expect(first.locator(".highlights li")).toHaveCount(2); // os 4 completos ficam no painel de detalhes
+  await expect(first.locator(".project-visual")).toHaveCount(1);
   await expect(first.getByRole("link", { name: "Código" })).toHaveAttribute("href", /APP-CALCULADORANUTRI/);
 });
 
@@ -215,4 +216,27 @@ test.describe("atalhos e menus (desktop)", () => {
     await expect(menu).toBeHidden();
     await expect(page.locator("dialog.shortcuts")).toBeVisible();
   });
+});
+
+test("faixa de tecnologias duplica a lista só visualmente", async ({ page }) => {
+  await page.goto("/");
+  const items = page.locator(".marquee-track li");
+  const total = await items.count();
+  expect(total % 2).toBe(0);
+  await expect(page.locator('.marquee-track li[aria-hidden="true"]')).toHaveCount(total / 2);
+});
+
+test("nome do topo continua legível para leitores de tela", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator(".hero-name .sr-only")).toHaveText("Jhonne Weslley");
+  await expect(page.locator(".hero-name .word").first()).toHaveAttribute("aria-hidden", "true");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Jhonne Weslley");
+});
+
+test("pontos laterais acompanham a seção atual", async ({ page, isMobile }) => {
+  test.skip(isMobile, "os pontos laterais só aparecem em telas largas");
+  await page.setViewportSize({ width: 1400, height: 900 });
+  await page.goto("/");
+  await page.locator('.side-dots a[href="#formacao"]').click();
+  await expect(page.locator('.side-dots a[href="#formacao"]')).toHaveAttribute("aria-current", "true");
 });

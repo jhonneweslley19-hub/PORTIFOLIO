@@ -110,3 +110,92 @@ export function initShortcuts(shortcuts, dialog) {
 
   dialog.addEventListener("click", (e) => { if (e.target === dialog) dialog.close(); });
 }
+
+/* ─────────────────────────────────────────────────────────────
+   Efeitos de movimento — todos respeitam prefers-reduced-motion
+   e só usam o ponteiro quando ele é preciso (mouse/trackpad).
+   ───────────────────────────────────────────────────────────── */
+const reduceMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+const finePointer = () => matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+/** Divide o texto em palavras para uma entrada escalonada (leitores de tela leem o texto inteiro). */
+export function splitWords(el, startDelay = 0) {
+  const text = el.textContent.trim();
+  if (!text) return 0;
+  const readable = document.createElement("span");
+  readable.className = "sr-only";
+  readable.textContent = text;
+  el.replaceChildren(readable, ...text.split(/\s+/).map((word, i) => {
+    const span = document.createElement("span");
+    span.className = "word";
+    span.setAttribute("aria-hidden", "true");
+    span.style.setProperty("--i", i + startDelay);
+    span.textContent = word;
+    return span;
+  }).flatMap((span, i, all) => (i < all.length - 1 ? [span, " "] : [span])));
+  return text.split(/\s+/).length;
+}
+
+/** Botões "magnéticos": acompanham levemente o cursor. */
+export function initMagnetic(root = document) {
+  if (reduceMotion() || !finePointer()) return;
+  root.addEventListener("pointermove", (e) => {
+    const el = e.target.closest?.(".magnetic");
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    el.style.translate = `${(e.clientX - r.left - r.width / 2) * 0.18}px ${(e.clientY - r.top - r.height / 2) * 0.25}px`;
+  });
+  root.addEventListener("pointerout", (e) => {
+    const el = e.target.closest?.(".magnetic");
+    if (el && !el.contains(e.relatedTarget)) el.style.translate = "";
+  });
+}
+
+/** Brilho que segue o cursor em cartões `.spotlight` e na aurora do topo. */
+export function initSpotlight() {
+  if (!finePointer()) return;
+  document.addEventListener("pointermove", (e) => {
+    const card = e.target.closest?.(".spotlight, .hero");
+    if (!card) return;
+    const r = card.getBoundingClientRect();
+    card.style.setProperty("--mx", `${e.clientX - r.left}px`);
+    card.style.setProperty("--my", `${e.clientY - r.top}px`);
+  }, { passive: true });
+}
+
+/** Inclinação 3D suave de um elemento conforme a posição do cursor. */
+export function initTilt(el, max = 6) {
+  if (!el || reduceMotion() || !finePointer()) return;
+  el.addEventListener("pointermove", (e) => {
+    const r = el.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    el.style.transform = `perspective(900px) rotateX(${-y * max}deg) rotateY(${x * max}deg)`;
+  });
+  el.addEventListener("pointerleave", () => { el.style.transform = ""; });
+}
+
+/**
+ * Entradas ao rolar. Onde o navegador suporta CSS scroll-driven animations
+ * (animation-timeline: view()) o CSS faz tudo; aqui fica só o fallback.
+ */
+export function initReveal() {
+  const items = document.querySelectorAll(".reveal, .reveal-item");
+  if (CSS.supports("animation-timeline: view()") && !reduceMotion()) return;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((en) => en.isIntersecting && (en.target.classList.add("in"), io.unobserve(en.target)));
+  }, { threshold: 0.08 });
+  items.forEach((el) => io.observe(el));
+}
+
+/** Anel de progresso de leitura no botão "voltar ao topo". */
+export function initScrollProgress(el) {
+  let raf = 0;
+  const update = () => {
+    raf = 0;
+    const max = document.documentElement.scrollHeight - innerHeight;
+    el.style.setProperty("--progress", max > 0 ? (scrollY / max).toFixed(3) : 0);
+  };
+  addEventListener("scroll", () => { raf ||= requestAnimationFrame(update); }, { passive: true });
+  update();
+}

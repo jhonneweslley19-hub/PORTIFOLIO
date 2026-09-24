@@ -46,6 +46,7 @@
 
   <script>
     // Aplica o tema salvo antes da renderização (evita "flash")
+    document.documentElement.classList.add("js");
     try {
       const t = localStorage.getItem("theme");
       if (t) document.documentElement.dataset.theme = t;
@@ -126,15 +127,16 @@
   <main id="conteudo">
     <!-- HERO -->
     <section class="hero" id="topo">
+      <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
       <div class="hero-text">
-        <p class="status" data-show="status"><span class="dot" aria-hidden="true"></span><span data-bind="status"></span></p>
+        <p class="status" data-show="status"><span class="dot" aria-hidden="true"></span><span data-bind="status">Aberto a oportunidades de estágio</span></p>
         <h1>
-          <span class="hero-name" data-bind="name"></span>
-          <span class="hero-headline" data-bind="headline"></span>
+          <span class="hero-name" data-bind="name" data-split>Jhonne Weslley</span>
+          <span class="hero-headline" data-bind="headline" data-split>Construo aplicações web que resolvem problemas reais.</span>
         </h1>
-        <p class="lead" data-bind="tagline"></p>
+        <p class="lead" data-bind="tagline">Estudante de Engenharia de Software na Estácio. Desenvolvo com JavaScript, TypeScript e React, com atenção a testes, segurança e boa experiência de uso.</p>
         <div class="cta">
-          <a class="btn primary" href="#projetos">Ver projetos</a>
+          <a class="btn primary magnetic" href="#projetos">Ver projetos</a>
           <template data-cv><a class="btn ghost" target="_blank" rel="noopener">Currículo (PDF)</a></template>
           <div class="socials" data-render="socials-hero"></div>
         </div>
@@ -153,7 +155,14 @@
         <pre role="tabpanel" id="panel-stack" aria-labelledby="tab-stack" tabindex="0" hidden><code data-render="code-stack"></code></pre>
         <pre role="tabpanel" id="panel-contato" aria-labelledby="tab-contato" tabindex="0" hidden><code data-render="code-contato"></code></pre>
       </aside>
+
+      <a class="scroll-cue" href="#projetos" aria-label="Rolar até os projetos"><span></span></a>
     </section>
+
+    <!-- Faixa de tecnologias -->
+    <div class="marquee" role="region" aria-label="Tecnologias com que trabalho">
+      <ul class="marquee-track" data-render="marquee"></ul>
+    </div>
 
     <!-- PROJETOS -->
     <section id="projetos" class="section reveal">
@@ -179,16 +188,43 @@
         <p class="kicker">Sobre</p>
         <h2>Quem sou</h2>
       </header>
-      <div class="about">
-        <div class="about-text" data-render="about"></div>
-        <div class="skills">
+      <div class="bento">
+        <article class="tile tile-about reveal-item">
+          <div class="about-text" data-render="about"></div>
+        </article>
+
+        <article class="tile tile-edu reveal-item">
+          <span class="tile-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path d="m12 4 10 5-10 5L2 9l10-5Z M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          </span>
+          <h3>Engenharia de Software</h3>
+          <p class="muted"><span data-bind="university"></span> · <span data-bind="semester"></span></p>
+          <a class="link" href="#formacao">Ver formação →</a>
+        </article>
+
+        <article class="tile tile-status reveal-item" data-show="status">
+          <span class="pulse" aria-hidden="true"></span>
+          <h3 data-bind="status"></h3>
+          <p class="muted">Quero aprender com um time e entregar código de qualidade.</p>
+          <a class="btn small primary magnetic" href="#contato">Vamos conversar</a>
+        </article>
+
+        <article class="tile tile-stack reveal-item">
+          <h3>Competências</h3>
           <p class="hint">Clique numa tecnologia para ver em quais projetos eu a usei.</p>
-          <dl data-render="skills"></dl>
-          <div class="learning" data-show="learning">
-            <h3>Estudando agora</h3>
-            <ul class="chips" data-render="learning"></ul>
-          </div>
-        </div>
+          <div class="skills"><dl data-render="skills"></dl></div>
+        </article>
+
+        <article class="tile tile-learning reveal-item" data-show="learning">
+          <h3>Estudando agora</h3>
+          <ul class="chips" data-render="learning"></ul>
+        </article>
+
+        <a class="tile tile-terminal reveal-item" href="#terminal">
+          <span class="prompt-glyph" aria-hidden="true">&gt;_</span>
+          <h3>Prefere a linha de comando?</h3>
+          <p class="muted">Explore o portfólio pelo terminal interativo →</p>
+        </a>
       </div>
     </section>
 
@@ -198,7 +234,7 @@
         <p class="kicker">Formação</p>
         <h2>Formação acadêmica</h2>
       </header>
-      <article class="card edu">
+      <article class="card edu reveal-item">
         <div class="edu-head">
           <div>
             <h3 data-bind="edu-degree"></h3>
@@ -222,7 +258,7 @@
         <h2>Prefere a linha de comando?</h2>
         <p>Explore o portfólio por comandos. Digite <code>help</code> para começar.</p>
       </header>
-      <div class="term" role="region" aria-label="Terminal interativo">
+      <div class="term reveal-item" role="region" aria-label="Terminal interativo">
         <div class="window-bar"><i></i><i></i><i></i><span>visitante@jhonne: ~</span></div>
         <div class="term-body">
           <div class="term-out" aria-live="polite"></div>
@@ -236,7 +272,7 @@
 
     <!-- CONTATO -->
     <section id="contato" class="section reveal">
-      <div class="contact card">
+      <div class="contact card reveal-item">
         <div>
           <p class="kicker">Contato</p>
           <h2>Vamos conversar?</h2>
@@ -305,7 +341,17 @@
     <dl data-render="shortcuts"></dl>
   </dialog>
 
+  <nav class="side-dots" aria-label="Seções da página">
+    <a href="#topo"><span>Início</span></a>
+    <a href="#projetos"><span>Projetos</span></a>
+    <a href="#sobre"><span>Sobre</span></a>
+    <a href="#formacao"><span>Formação</span></a>
+    <a href="#terminal"><span>Terminal</span></a>
+    <a href="#contato"><span>Contato</span></a>
+  </nav>
+
   <a class="to-top" href="#topo" aria-label="Voltar ao topo">
+    <svg class="ring" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22" pathLength="100"/></svg>
     <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="m6 15 6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </a>
 

@@ -14,23 +14,47 @@ const demoLink = (p, cls = "btn small primary") =>
 const codeLink = (p) =>
   p.repo ? html`<a class="btn small ghost" href="${p.repo}" target="_blank" rel="noopener">${{ raw: ICON_GITHUB }} Código</a>` : "";
 
+/** Ilustrações dos cartões (decorativas; valores como barras, sem números inventados). */
+const VISUALS = {
+  label: () => html`
+    <div class="mock mock-label">
+      <p class="mock-title">INFORMAÇÃO NUTRICIONAL</p>
+      <div class="mock-row head"><span></span><span>100 g</span><span>Porção</span><span>%VD</span></div>
+      ${["Valor energético", "Carboidratos", "Açúcares totais", "Proteínas", "Gorduras totais", "Fibras", "Sódio"].map((n, i) => html`
+        <div class="mock-row"><span>${n}</span><i style="--w:${[70, 55, 35, 40, 50, 30, 45][i]}%"></i><i style="--w:${[60, 45, 30, 35, 40, 25, 40][i]}%"></i><i style="--w:${[40, 30, 20, 25, 35, 15, 30][i]}%"></i></div>`)}
+      <p class="mock-foot">*%VD com base em uma dieta de 2.000 kcal</p>
+    </div>`,
+  terminal: () => html`
+    <div class="mock mock-term">
+      <div class="mock-bar"><i></i><i></i><i></i></div>
+      <p><b>$</b> help</p>
+      <p class="dim">sobre · skills · projetos · formacao · contato</p>
+      <p><b>$</b> neofetch</p>
+      <p><span class="acc">visitante</span>@<span class="acc">jhonne</span></p>
+      <p class="dim">Stack: JavaScript, TypeScript, React…</p>
+      <p><b>$</b> <span class="caret"></span></p>
+    </div>`,
+};
+
 export function initProjects(projects) {
   const drawer = document.querySelector(".drawer");
   const bySlug = new Map(projects.map((p) => [p.slug, p]));
 
-  render("projects", projects, (p) => html`
-    <article class="card project" id="card-${p.slug}">
-      <div>
+  render("projects", projects, (p, i) => html`
+    <article class="card project spotlight reveal-item" id="card-${p.slug}">
+      ${VISUALS[p.visual] ? html`<div class="project-visual" aria-hidden="true">${VISUALS[p.visual]()}</div>` : ""}
+      <div class="project-body">
+        <p class="project-index">${String(i + 1).padStart(2, "0")}</p>
         <h3>${p.title}</h3>
         <p class="summary">${p.summary}</p>
+        <ul class="highlights" aria-label="Destaques">${p.highlights.slice(0, 2).map((h) => html`<li>${{ raw: CHECK }}<span>${h}</span></li>`)}</ul>
         <ul class="chips" aria-label="Tecnologias">${p.tags.map((t) => html`<li>${t}</li>`)}</ul>
         <div class="project-links">
-          <button class="btn small primary" type="button" data-project="${p.slug}">Ver detalhes ${{ raw: ARROW }}</button>
+          <button class="btn small primary magnetic" type="button" data-project="${p.slug}">Ver detalhes ${{ raw: ARROW }}</button>
           ${codeLink(p)}
           ${demoLink(p, "link")}
         </div>
       </div>
-      <ul class="highlights" aria-label="Destaques">${p.highlights.map((h) => html`<li>${{ raw: CHECK }}<span>${h}</span></li>`)}</ul>
     </article>`);
 
   /* ── Painel de detalhes ───────────────────────── */

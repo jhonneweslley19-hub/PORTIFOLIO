@@ -25,5 +25,5 @@ export const toString = toHTML;
 export function render(name, items, template) {
   const el = document.querySelector(`[data-render="${name}"]`);
   if (!el) return;
-  el.innerHTML = items.map((item) => toHTML(template(item))).join("");
+  el.innerHTML = items.map((item, i) => toHTML(template(item, i))).join("");
 }

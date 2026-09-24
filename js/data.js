@@ -36,10 +36,12 @@ export const profile = {
  * `problem` / `solution`: aparecem no painel "Ver detalhes".
  * `highlights`: 2–4 frases curtas sobre o que você fez / decisões técnicas.
  * `uses`: tecnologias usadas que não aparecem nas etiquetas do cartão.
+ * `visual`: ilustração do cartão — "label" (tabela nutricional) | "terminal" | "" (nenhuma).
  */
 export const projects = [
   {
     slug: "calculadora-nutri",
+    visual: "label",
     title: "Calculadora Nutri",
     summary:
       "Aplicação web que transforma a receita de um produto alimentício em rótulo nutricional no padrão ANVISA (IN 75/2020), com exportação em PNG e PDF.",
@@ -60,6 +62,7 @@ export const projects = [
   },
   {
     slug: "portfolio",
+    visual: "terminal",
     title: "Este portfólio",
     summary:
       "Site pessoal feito sem frameworks, com foco em desempenho, acessibilidade e automação.",

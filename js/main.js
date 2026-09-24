@@ -5,7 +5,10 @@ import { fetchRepos, loadRepos } from "./github.js";
 import { initPalette } from "./palette.js";
 import { initProjects, initSkills } from "./projects.js";
 import { initTerminal } from "./terminal.js";
-import { initDropdown, initNavIndicator, initShortcuts, initTabs, initToTop } from "./ui.js";
+import {
+  initDropdown, initMagnetic, initNavIndicator, initReveal, initScrollProgress, initShortcuts,
+  initSpotlight, initTabs, initTilt, initToTop, splitWords,
+} from "./ui.js";
 
 const { profile, education } = data;
 const $ = (s, root = document) => root.querySelector(s);
@@ -138,15 +141,10 @@ function toggleTheme(e) {
   });
 }
 
-/* ── Animações e navegação ─────────────────────── */
-function initScrollFx() {
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((en) => en.isIntersecting && (en.target.classList.add("in"), io.unobserve(en.target)));
-  }, { threshold: 0.08 });
-  $$(".reveal").forEach((el) => io.observe(el));
-
-  // Destaca o link da seção visível (o indicador animado acompanha)
-  const links = $$(".nav nav a, .mobile-menu a");
+/* ── Navegação: destaca a seção visível ────────── */
+function initScrollSpy() {
+  // O indicador animado do menu e os pontos laterais acompanham o aria-current
+  const links = $$(".nav nav a, .mobile-menu a, .side-dots a");
   const spy = new IntersectionObserver((entries) => {
     entries.forEach((en) => {
       if (!en.isIntersecting) return;
@@ -157,6 +155,13 @@ function initScrollFx() {
     });
   }, { rootMargin: "-45% 0px -50% 0px" });
   $$("main section[id]").forEach((s) => spy.observe(s));
+}
+
+/* ── Faixa de tecnologias (a segunda cópia só existe para o loop contínuo) ── */
+function renderMarquee() {
+  const items = [...new Set(data.skills.flatMap((g) => g.items))];
+  const row = (hidden) => items.map((t) => html`<li${hidden ? { raw: ' aria-hidden="true"' } : ""}>${t}</li>`);
+  $('[data-render="marquee"]').innerHTML = toString(html`${row(false)}${row(true)}`);
 }
 
 /* ── Utilidades ─────────────────────────────────── */
@@ -182,7 +187,18 @@ const goto = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "sm
 /* ── Inicialização ──────────────────────────────── */
 bindText();
 renderSections();
-initScrollFx();
+renderMarquee();
+
+// Nome e frase do topo entram palavra por palavra
+const nameWords = splitWords($(".hero-name"));
+splitWords($(".hero-headline"), nameWords + 1);
+
+initScrollSpy();
+initReveal();
+initSpotlight();
+initMagnetic();
+initTilt($(".hero-card"));
+initScrollProgress($(".to-top"));
 
 const projects = initProjects(data.projects);
 initSkills({ ...data, openProject: projects.open });

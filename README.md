@@ -24,6 +24,10 @@ Sem framework no navegador: HTML, CSS e **JavaScript moderno (ES Modules)**.
 | Menu "Mais" e indicador animado da seção atual | `js/ui.js` |
 | Atalhos de teclado estilo GitHub (<kbd>?</kbd>, <kbd>g</kbd> <kbd>p</kbd>…) | `js/ui.js` |
 | Formulário de contato que monta o e-mail, com rascunho salvo | `js/contact.js` |
+| Topo com aurora animada, luz que segue o cursor e entrada palavra por palavra | `css/styles.css`, `js/ui.js` |
+| Entradas ao rolar com CSS scroll-driven animations (`animation-timeline: view()`) | `css/styles.css` |
+| Prévias ilustradas dos projetos, "bento grid" no Sobre e faixa de tecnologias | `js/projects.js`, `css/styles.css` |
+| Navegação lateral por pontos, botões magnéticos e anel de progresso de leitura | `js/ui.js` |
 | Menu do celular com Popover API + `@starting-style` | `index.html`, `css/styles.css` |
 | Tema claro/escuro com View Transitions API | `js/main.js` |
 | CSS nesting, `@layer`, `color-mix()`, `oklab` | `css/styles.css` |
