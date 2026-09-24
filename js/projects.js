@@ -24,6 +24,13 @@ const VISUALS = {
         <div class="mock-row"><span>${n}</span><i style="--w:${[70, 55, 35, 40, 50, 30, 45][i]}%"></i><i style="--w:${[60, 45, 30, 35, 40, 25, 40][i]}%"></i><i style="--w:${[40, 30, 20, 25, 35, 15, 30][i]}%"></i></div>`)}
       <p class="mock-foot">*%VD com base em uma dieta de 2.000 kcal</p>
     </div>`,
+  pos: () => html`
+    <div class="mock mock-pos">
+      <div class="mock-bar"><i></i><i></i><i></i><span>Dashboard</span></div>
+      <div class="pos-kpis">${["Vendas", "Produtos", "Clientes"].map((k) => html`<div><small>${k}</small><i></i></div>`)}</div>
+      <div class="pos-chart">${[40, 65, 50, 80, 60, 90, 72].map((h) => html`<i style="--h:${h}%"></i>`)}</div>
+      <div class="pos-rows">${["Venda #1", "Venda #2", "Venda #3"].map((r) => html`<p><span>${r}</span><i></i><b>pago</b></p>`)}</div>
+    </div>`,
   terminal: () => html`
     <div class="mock mock-term">
       <div class="mock-bar"><i></i><i></i><i></i></div>

@@ -139,9 +139,9 @@ test("painel de detalhes: abre, navega, fecha e atualiza o link", async ({ page 
   await expect(drawer).toContainText("O problema");
   await expect(page).toHaveURL(/#projeto\/calculadora-nutri$/);
 
-  await drawer.getByRole("button", { name: /Este portfólio →/ }).click();
-  await expect(drawer.locator("h2")).toHaveText("Este portfólio");
-  await expect(page).toHaveURL(/#projeto\/portfolio$/);
+  await drawer.getByRole("button", { name: /Mellzinha · Gestão Comercial →/ }).click();
+  await expect(drawer.locator("h2")).toHaveText("Mellzinha · Gestão Comercial");
+  await expect(page).toHaveURL(/#projeto\/mellzinha$/);
 
   await page.keyboard.press("Escape");
   await expect(drawer).toBeHidden();

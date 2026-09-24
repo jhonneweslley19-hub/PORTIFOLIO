@@ -16,7 +16,7 @@ export const profile = {
   status: "Aberto a oportunidades de estágio", // selo no topo; deixe "" para ocultar
   headline: "Construo aplicações web que resolvem problemas reais.",
   tagline:
-    "Estudante de Engenharia de Software na Estácio. Desenvolvo com JavaScript, TypeScript e React, com atenção a testes, segurança e boa experiência de uso.",
+    "Estudante de Engenharia de Software na Estácio. Crio aplicações web com o apoio de ferramentas de IA enquanto aprofundo os fundamentos no curso.",
   about: [
     "Sou estudante de Engenharia de Software na Estácio, no 2º período. Gosto de pegar um processo manual ou confuso e transformá-lo em software simples de usar. Foi o que fiz com a Calculadora Nutri, que substituiu uma planilha cheia de fórmulas por uma aplicação web testada.",
     "Já concluí disciplinas de redes, segurança da informação, computação em nuvem e programação. Agora estou me aprofundando em banco de dados, desenvolvimento web e Python. Busco um estágio para crescer com um time e entregar código de qualidade.",
@@ -36,7 +36,7 @@ export const profile = {
  * `problem` / `solution`: aparecem no painel "Ver detalhes".
  * `highlights`: 2–4 frases curtas sobre o que você fez / decisões técnicas.
  * `uses`: tecnologias usadas que não aparecem nas etiquetas do cartão.
- * `visual`: ilustração do cartão — "label" (tabela nutricional) | "terminal" | "" (nenhuma).
+ * `visual`: ilustração do cartão — "label" (tabela nutricional) | "pos" (painel de vendas) | "terminal" | "" (nenhuma).
  */
 export const projects = [
   {
@@ -56,9 +56,30 @@ export const projects = [
       "Chave de API protegida no servidor com Supabase Edge Functions.",
     ],
     tags: ["React", "TypeScript", "Supabase", "Tailwind CSS", "Vitest"],
-    uses: ["PostgreSQL", "Edge Functions", "HTML", "CSS", "Git e GitHub"], // tecnologias de bastidor (ligam competências a projetos)
+    uses: ["PostgreSQL", "Edge Functions", "HTML", "CSS", "Git e GitHub", "Desenvolvimento com IA"], // tecnologias de bastidor (ligam competências a projetos)
     repo: "https://github.com/jhonneweslley19-hub/APP-CALCULADORANUTRI",
     demo: "", // URL do app no ar, quando quiser divulgar
+  },
+  {
+    slug: "mellzinha",
+    visual: "pos",
+    title: "Mellzinha · Gestão Comercial",
+    summary:
+      "Sistema web para pequenos negócios controlarem vendas, estoque, clientes, despesas e relatórios, no computador ou no celular.",
+    problem:
+      "Pequenos comércios costumam controlar vendas e estoque em cadernos ou planilhas soltas, sem visão clara do que entra, do que sai e do que está acabando.",
+    solution:
+      "Um sistema com ponto de venda, estoque com leitor de código de barras pela câmera do celular, cadastro de clientes, despesas, dashboard com gráficos e relatórios em PDF, com uma API em Node.js no Firebase.",
+    highlights: [
+      "Ponto de venda com várias formas de pagamento, parcelas e cálculo de troco.",
+      "Leitura de código de barras pela câmera e controle de estoque.",
+      "Segurança na API: 2FA (TOTP), proteção contra força bruta, CSRF, limite de requisições e log de auditoria.",
+      "55 testes automatizados com Jest e backup agendado do banco de dados.",
+    ],
+    tags: ["JavaScript", "Node.js", "Express", "Firebase", "Jest"],
+    uses: ["HTML", "CSS", "PWA", "Git e GitHub", "Desenvolvimento com IA"],
+    repo: "", // link do repositório público, quando estiver criado
+    demo: "",
   },
   {
     slug: "portfolio",
@@ -76,7 +97,7 @@ export const projects = [
       "Funciona offline (PWA), tem busca rápida com Ctrl+K e um terminal interativo.",
     ],
     tags: ["JavaScript", "CSS", "Playwright", "GitHub Actions"],
-    uses: ["HTML", "Acessibilidade", "PWA", "Git e GitHub"],
+    uses: ["HTML", "Acessibilidade", "PWA", "Git e GitHub", "Desenvolvimento com IA"],
     repo: "https://github.com/jhonneweslley19-hub/PORTIFOLIO",
     demo: "",
   },
@@ -86,8 +107,8 @@ export const projects = [
 export const skills = [
   { group: "Linguagens", items: ["JavaScript", "TypeScript", "HTML", "CSS"] },
   { group: "Front-end", items: ["React", "Tailwind CSS", "Acessibilidade", "PWA"] },
-  { group: "Back-end e dados", items: ["Supabase", "PostgreSQL", "Edge Functions"] },
-  { group: "Qualidade e ferramentas", items: ["Git e GitHub", "GitHub Actions", "Vitest", "Playwright"] },
+  { group: "Back-end e dados", items: ["Node.js", "Express", "Firebase", "Supabase", "PostgreSQL", "Edge Functions"] },
+  { group: "Qualidade e ferramentas", items: ["Desenvolvimento com IA", "Git e GitHub", "GitHub Actions", "Vitest", "Playwright"] },
 ];
 export const learning = ["Python", "PHP", "SQL", "Banco de dados", "Arquitetura de computadores"];
 
