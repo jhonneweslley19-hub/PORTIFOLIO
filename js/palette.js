@@ -12,12 +12,12 @@ export function initPalette({ profile, projects, copyEmail, runCommand }) {
   };
 
   const commands = [
-    { label: "Sobre", hint: "seção", run: goto("sobre") },
-    { label: "Stack", hint: "seção", run: goto("stack") },
     { label: "Projetos", hint: "seção", run: goto("projetos") },
+    { label: "Sobre e competências", hint: "seção", run: goto("sobre") },
+    { label: "Formação", hint: "seção", run: goto("formacao") },
     { label: "Terminal", hint: "seção", run: goto("terminal") },
-    { label: "Jornada", hint: "seção", run: goto("jornada") },
     { label: "Contato", hint: "seção", run: goto("contato") },
+    ...(profile.cv ? [{ label: "Baixar currículo (PDF)", hint: "ação", run: open(profile.cv) }] : []),
     ...projects.filter((p) => p.repo || p.demo)
       .map((p) => ({ label: p.title, hint: "projeto", run: open(p.demo || p.repo) })),
     { label: "Rodar “help” no terminal", hint: "terminal", run: inTerminal("help") },

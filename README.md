@@ -15,13 +15,11 @@ Sem framework no navegador: HTML, CSS e **JavaScript moderno (ES Modules)**.
 |---|---|
 | Todo o conteúdo em um único arquivo de dados | `js/data.js` |
 | Templates seguros com escape automático de HTML (tagged templates) | `js/dom.js` |
-| Rede de nós animada em `<canvas>` que reage ao cursor + efeito de digitação | `js/network.js` |
 | **Terminal interativo** (`help`, `neofetch`, histórico ↑/↓, Tab, Ctrl+L) | `js/terminal.js` |
 | Repositórios do GitHub, gerados no deploy com fallback para a API | `js/github.js`, `scripts/fetch-repos.mjs` |
 | Paleta de comandos <kbd>Ctrl</kbd>+<kbd>K</kbd> | `js/palette.js` |
 | Menu do celular com Popover API + `@starting-style` | `index.html`, `css/styles.css` |
 | Tema claro/escuro com View Transitions API | `js/main.js` |
-| Barra de progresso com CSS scroll-driven animations | `css/styles.css` |
 | CSS nesting, `@layer`, `color-mix()`, `oklab` | `css/styles.css` |
 | Fontes variáveis hospedadas no próprio site (sem Google Fonts) | `assets/fonts/` |
 | PWA offline, com versão de cache carimbada a cada deploy | `sw.js`, `scripts/build.mjs` |
@@ -42,10 +40,10 @@ O deploy só acontece se o CI passar. Além disso, a lista de repositórios é a
 
 Abra **`js/data.js`**. Campos vazios (`""`) e listas vazias (`[]`) são ocultados automaticamente.
 
-- `profile`: nome, semestre, faculdade, cidade, frases do topo, e-mail, links e `cv` (PDF)
-- `stack`: tecnologias, com status `uso` ou `estudando`
-- `projects`: projetos em destaque (os do GitHub aparecem sozinhos)
-- `timeline`: linha do tempo
+- `profile`: nome, faculdade, período, selo de disponibilidade, textos do topo e do "Sobre", e-mail, links e `cv` (PDF)
+- `projects`: projetos em destaque, com resumo, destaques, tecnologias e links (os do GitHub aparecem sozinhos)
+- `skills` e `learning`: competências e o que você está estudando
+- `education` e `curriculum`: formação e grade curricular
 - `certificates`: cursos e certificados
 
 Mudou o nome ou o cargo? Rode `npm run og` para gerar a imagem de compartilhamento de novo.

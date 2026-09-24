@@ -12,14 +12,14 @@ export const profile = {
   role: "Estudante de Engenharia de Software",
   semester: "2º período",
   university: "Estácio",
-  city: "",       // ex.: "Recife, PE"
-  // Frases que se alternam no topo do site
-  roles: ["Engenharia de Software", "Desenvolvimento Web", "JavaScript", "Aprendendo em público"],
+  city: "", // ex.: "Recife, PE"
+  status: "Aberto a oportunidades de estágio", // selo no topo; deixe "" para ocultar
+  headline: "Construo aplicações web que resolvem problemas reais.",
   tagline:
-    "Estudante de Engenharia de Software construindo projetos para aprender na prática — do código ao deploy.",
+    "Estudante de Engenharia de Software na Estácio. Desenvolvo com JavaScript, TypeScript e React, com atenção a testes, segurança e boa experiência de uso.",
   about: [
-    "Sou o Jhonne, estudante de Engenharia de Software. Gosto de entender como as coisas funcionam por dentro e de transformar o que aprendo em projetos reais.",
-    "Este portfólio reúne meus projetos, as tecnologias que estou estudando e minha evolução ao longo do curso. Ele mesmo é um projeto: foi feito com JavaScript puro, sem frameworks.",
+    "Sou estudante de Engenharia de Software na Estácio, no 2º período. Gosto de pegar um processo manual ou confuso e transformá-lo em software simples de usar. Foi o que fiz com a Calculadora Nutri, que substituiu uma planilha cheia de fórmulas por uma aplicação web testada.",
+    "Já concluí disciplinas de redes, segurança da informação, computação em nuvem e programação. Agora estou me aprofundando em banco de dados, desenvolvimento web e Python. Busco um estágio para crescer com um time e entregar código de qualidade.",
   ],
   email: "jhonne.weslley19@gmail.com",
   links: {
@@ -27,109 +27,59 @@ export const profile = {
     linkedin: "https://www.linkedin.com/in/jhonne-w-038b57127",
   },
   githubUser: "jhonneweslley19-hub",
-  cv: "", // caminho do currículo em PDF, ex.: "assets/cv-jhonne.pdf" — ativa o comando `cv` no terminal
-  openTo: "Aberto a estágios, projetos open source e colaborações.",
+  cv: "", // caminho do currículo em PDF, ex.: "assets/cv-jhonne.pdf" — mostra o botão "Currículo"
 };
 
-/** Indicadores do topo. O número de repositórios é adicionado ao vivo pela API do GitHub. */
-export const stats = [
-  { value: "2º", label: "período de Eng. de Software" },
-  { value: "JS", label: "linguagem principal" },
-];
-
 /**
- * Stack. Liste só o que você realmente usa ou estuda.
- * status: "uso" | "estudando" | "concluído" (disciplina já aprovada)
- */
-export const stack = [
-  {
-    group: "Linguagens",
-    items: [
-      { name: "JavaScript", status: "uso" },
-      { name: "TypeScript", status: "uso" },
-      { name: "HTML", status: "uso" },
-      { name: "CSS", status: "uso" },
-      { name: "Python", status: "estudando" },
-      { name: "PHP", status: "estudando" },
-      { name: "SQL", status: "estudando" },
-    ],
-  },
-  {
-    group: "Ferramentas",
-    items: [
-      { name: "Git", status: "uso" },
-      { name: "GitHub", status: "uso" },
-      { name: "React", status: "uso" },
-      { name: "Supabase", status: "uso" },
-      { name: "GitHub Actions", status: "estudando" },
-    ],
-  },
-  {
-    group: "Fundamentos",
-    items: [
-      { name: "Redes de computadores", status: "concluído" },
-      { name: "Segurança da informação", status: "concluído" },
-      { name: "Computação em nuvem", status: "concluído" },
-      { name: "Matemática e lógica", status: "concluído" },
-      { name: "Banco de dados", status: "estudando" },
-      { name: "Arquitetura de computadores", status: "estudando" },
-    ],
-  },
-];
-
-/**
- * Projetos em destaque (além dos que vêm automaticamente do GitHub).
+ * Projetos em destaque (os repositórios públicos do GitHub aparecem sozinhos abaixo deles).
+ * `highlights`: 2–4 frases curtas sobre o que você fez / decisões técnicas.
  */
 export const projects = [
   {
     title: "Calculadora Nutri",
-    description:
-      "Transforma uma receita em rótulo nutricional no padrão ANVISA (IN 75/2020), com exportação em PNG/PDF. Migrei uma planilha com Apps Script para um app web, corrigi dois erros de cálculo (cobertos por testes) e criei uma busca no USDA com tradução PT→EN e ranking de resultados, protegida numa Edge Function.",
-    tags: ["React", "TypeScript", "Supabase", "Tailwind", "Vitest"],
+    summary:
+      "Aplicação web que transforma a receita de um produto alimentício em rótulo nutricional no padrão ANVISA (IN 75/2020), com exportação em PNG e PDF.",
+    highlights: [
+      "Migrei uma planilha com Apps Script para uma aplicação web e corrigi dois erros de cálculo da versão original.",
+      "Motor de cálculo isolado e coberto por testes com os valores reais da planilha.",
+      "Busca no banco de alimentos do USDA com tradução PT→EN, ranking de resultados e revisão manual.",
+      "Chave de API protegida no servidor com Supabase Edge Functions.",
+    ],
+    tags: ["React", "TypeScript", "Supabase", "Tailwind CSS", "Vitest"],
     repo: "https://github.com/jhonneweslley19-hub/APP-CALCULADORANUTRI",
-    demo: "", // coloque aqui a URL da Vercel quando quiser mostrar o app no ar
+    demo: "", // URL do app no ar, quando quiser divulgar
   },
   {
-    title: "Portfólio pessoal",
-    description:
-      "Este site. JavaScript puro com ES Modules, terminal interativo, paleta de comandos, tema com View Transitions, PWA offline e deploy automático via GitHub Actions.",
-    tags: ["JavaScript", "CSS", "PWA", "GitHub Actions"],
+    title: "Este portfólio",
+    summary:
+      "Site pessoal feito sem frameworks, com foco em desempenho, acessibilidade e automação.",
+    highlights: [
+      "JavaScript moderno com ES Modules e conteúdo centralizado em um único arquivo de dados.",
+      "Testes de ponta a ponta com Playwright e auditoria Lighthouse a cada push.",
+      "Funciona offline (PWA), tem busca rápida com Ctrl+K e um terminal interativo.",
+    ],
+    tags: ["JavaScript", "CSS", "Playwright", "GitHub Actions"],
     repo: "https://github.com/jhonneweslley19-hub/PORTIFOLIO",
-    demo: "https://jhonneweslley19-hub.github.io/PORTIFOLIO/",
+    demo: "",
   },
-  // {
-  //   title: "Nome do projeto",
-  //   description: "O que ele faz e o que você aprendeu.",
-  //   tags: ["JavaScript"],
-  //   repo: "https://github.com/...",
-  //   demo: "",
-  // },
 ];
 
-/**
- * Linha do tempo.
- * status: "done" | "current" | "next"
- */
-export const timeline = [
-  {
-    period: "2026.1 · 1º período",
-    title: "Início da graduação em Engenharia de Software",
-    text: "Aprovado nas 6 disciplinas: redes, segurança da informação, computação em nuvem, programação, matemática e lógica.",
-    status: "done",
-  },
-  {
-    period: "2026.3 · 2º período",
-    title: "Banco de dados, web e Python",
-    text: "Cursando banco de dados, desenvolvimento web (HTML5, CSS, JavaScript e PHP), paradigmas de programação em Python e arquitetura de computadores.",
-    status: "current",
-  },
-  {
-    period: "Próximos passos",
-    title: "Estágio e open source",
-    text: "Buscar o primeiro estágio e contribuir com projetos open source.",
-    status: "next",
-  },
+/** Competências, agrupadas. `learning` = o que você está estudando agora. */
+export const skills = [
+  { group: "Linguagens", items: ["JavaScript", "TypeScript", "HTML", "CSS"] },
+  { group: "Front-end", items: ["React", "Tailwind CSS", "Acessibilidade", "PWA"] },
+  { group: "Back-end e dados", items: ["Supabase", "PostgreSQL", "Edge Functions"] },
+  { group: "Qualidade e ferramentas", items: ["Git e GitHub", "GitHub Actions", "Vitest", "Playwright"] },
 ];
+export const learning = ["Python", "PHP", "SQL", "Banco de dados", "Arquitetura de computadores"];
+
+/** Formação acadêmica. */
+export const education = {
+  degree: "Bacharelado em Engenharia de Software",
+  institution: "Estácio",
+  period: "2026 – atual",
+  current: "Cursando o 2º período",
+};
 
 /**
  * Grade curricular (conforme o histórico acadêmico).

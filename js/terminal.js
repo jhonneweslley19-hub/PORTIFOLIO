@@ -4,7 +4,7 @@ import { html, toString } from "./dom.js";
  * Terminal interativo: o visitante explora o portfólio por comandos.
  * Suporta histórico (↑/↓), autocompletar (Tab) e Ctrl+L para limpar.
  */
-export function initTerminal({ profile, stack, projects, timeline, curriculum, getRepos, toggleTheme }) {
+export function initTerminal({ profile, skills, learning, projects, education, curriculum, getRepos, toggleTheme }) {
   const root = document.querySelector("#terminal");
   const body = root.querySelector(".term-body");
   const out = root.querySelector(".term-out");
@@ -39,13 +39,13 @@ export function initTerminal({ profile, stack, projects, timeline, curriculum, g
       desc: "ficha técnica estilo Linux",
       run: () => {
         const art = ["   ___ _    _  ", "  |_  | |  | | ", "    | | |  | | ", "    | | |/\\| | ", "/\\__/ \\  /\\  / ", "\\____/ \\/  \\/  "];
-        const using = stack.flatMap((g) => g.items).filter((i) => i.status === "uso").map((i) => i.name);
+        const using = skills.flatMap((g) => g.items).slice(0, 5);
         const info = [
           html`<span class="hl">visitante</span>@<span class="hl">jhonne</span>`,
           html`<span class="dim">──────────────</span>`,
           html`<span class="cy">Nome</span>: ${profile.name}`,
           html`<span class="cy">Curso</span>: Engenharia de Software`,
-          profile.university && html`<span class="cy">Faculdade</span>: ${profile.university}`,
+          profile.university && html`<span class="cy">Faculdade</span>: ${profile.university} (${profile.semester})`,
           html`<span class="cy">Stack</span>: ${using.join(", ")}`,
           html`<span class="cy">Shell</span>: portfolio-sh (JavaScript)`,
           html`<span class="cy">Uptime</span>: ${Math.round(performance.now() / 1000)}s nesta página`,
@@ -54,15 +54,14 @@ export function initTerminal({ profile, stack, projects, timeline, curriculum, g
           html`<span class="hl">${(art[n] ?? "").padEnd(18)}</span>${info[n] ?? ""}\n`)}`;
       },
     },
-    stack: {
-      desc: "tecnologias que uso e estudo",
-      run: () => html`${stack.map((g) => html`<span class="hl">${g.group}</span>\n${g.items.map(
-        (i) => html`  ${i.status === "uso" ? html`<span class="pr">✔</span>` : html`<span class="dim">…</span>`} ${i.name}${i.status === "estudando" ? html` <span class="dim">(estudando)</span>` : ""}\n`)}`)}`,
+    skills: {
+      desc: "competências e o que estou estudando",
+      run: () => html`${skills.map((g) => html`<span class="hl">${g.group}</span>\n  ${g.items.join(" · ")}\n`)}${learning.length ? html`<span class="hl">Estudando agora</span>\n  <span class="dim">${learning.join(" · ")}</span>\n` : ""}`,
     },
     projetos: {
       desc: "projetos em destaque e do GitHub",
       run: async () => {
-        print(html`<span class="hl">Em destaque</span>\n${projects.map((p) => html`  • <a href="${p.repo || p.demo}" target="_blank" rel="noopener">${p.title}</a> <span class="dim">— ${p.tags.join(", ")}</span>\n`)}`);
+        print(html`<span class="hl">Em destaque</span>\n${projects.map((p) => html`  • <a href="${p.demo || p.repo}" target="_blank" rel="noopener">${p.title}</a> <span class="dim">— ${p.tags.join(", ")}</span>\n`)}`);
         print(html`<span class="dim">buscando repositórios no GitHub…</span>`);
         try {
           const repos = await getRepos();
@@ -74,17 +73,13 @@ export function initTerminal({ profile, stack, projects, timeline, curriculum, g
         }
       },
     },
-    grade: {
-      desc: "grade curricular",
-      run: () => html`${curriculum.map((p) => {
+    formacao: {
+      desc: "formação e grade curricular",
+      run: () => html`<span class="cy">${education.degree}</span> — ${education.institution} <span class="dim">(${education.period})</span>\n\n${curriculum.map((p) => {
         const done = p.status === "done";
         return html`<span class="hl">${p.label}</span> <span class="dim">(${p.period})</span> — ${done ? html`<span class="pr">concluído</span>` : html`<span class="cy">em andamento</span>`}\n${p.courses.map(
           (c) => html`  ${done ? html`<span class="pr">✔</span>` : html`<span class="dim">…</span>`} ${c.name}\n`)}\n`;
       })}`,
-    },
-    jornada: {
-      desc: "linha do tempo",
-      run: () => html`${timeline.map((t) => html`<span class="cy">[${t.period}]</span> ${t.title}\n  <span class="dim">${t.text}</span>\n`)}`,
     },
     contato: {
       desc: "como falar comigo",
@@ -108,7 +103,8 @@ export function initTerminal({ profile, stack, projects, timeline, curriculum, g
     history.push(line); hIndex = history.length;
 
     const [name] = line.toLowerCase().split(/\s+/);
-    const cmd = commands[name] ?? (name === "sudo" ? { run: () => html`<span class="err">Permissão negada.</span> Boa tentativa 😄` } : null);
+    const aliases = { stack: "skills", grade: "formacao", "formação": "formacao", ls: "help" };
+    const cmd = commands[aliases[name] ?? name] ?? (name === "sudo" ? { run: () => html`<span class="err">Permissão negada.</span> Boa tentativa 😄` } : null);
     if (!cmd) return print(html`<span class="err">comando não encontrado:</span> ${name}. Digite <span class="hl">help</span>.`);
     const result = await cmd.run();
     if (result != null) print(result);

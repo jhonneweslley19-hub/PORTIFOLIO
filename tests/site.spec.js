@@ -26,7 +26,6 @@ test("mostra os repositórios do GitHub", async ({ page }) => {
   const cards = page.locator('[data-render="repos"] .repo');
   await expect(cards).toHaveCount(2);
   await expect(cards.first()).toContainText("PORTIFOLIO");
-  await expect(page.locator(".stats")).toContainText("repositórios públicos");
 });
 
 test("terminal executa comandos, autocompleta e trata erros", async ({ page }) => {
@@ -101,16 +100,24 @@ test.describe("celular", () => {
   });
 });
 
-test("grade curricular mostra os períodos e o status das disciplinas, sem notas", async ({ page }) => {
-  await page.goto("/#jornada");
+test("formação mostra os períodos e o status das disciplinas, sem notas", async ({ page }) => {
+  await page.goto("/#formacao");
   const periods = page.locator('[data-render="curriculum"] .period');
   await expect(periods).toHaveCount(2);
-  await expect(periods.first()).toContainText("concluída");
-  await expect(periods.nth(1)).toContainText("cursando");
+  await expect(periods.first()).toContainText("concluído");
+  await expect(periods.nth(1)).toContainText("em andamento");
   await expect(page.locator("main")).not.toContainText("média");
 
   const input = page.locator("#term-in");
   await input.fill("grade");
   await input.press("Enter");
   await expect(page.locator(".term-out")).toContainText("Computação em Nuvem");
+});
+
+test("projetos em destaque mostram resumo, destaques e links", async ({ page }) => {
+  await page.goto("/#projetos");
+  const first = page.locator(".project").first();
+  await expect(first.locator("h3")).toHaveText("Calculadora Nutri");
+  await expect(first.locator(".highlights li")).toHaveCount(4);
+  await expect(first.getByRole("link", { name: "Código" })).toHaveAttribute("href", /APP-CALCULADORANUTRI/);
 });

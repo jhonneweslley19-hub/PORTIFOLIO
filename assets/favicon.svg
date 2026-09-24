@@ -1,10 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#7c6cff"/>
-      <stop offset="1" stop-color="#22d3ee"/>
-    </linearGradient>
-  </defs>
-  <rect width="64" height="64" rx="16" fill="#0a0d14"/>
-  <path d="M22 20 10 32l12 12M42 20l12 12-12 12M36 16l-8 32" fill="none" stroke="url(#g)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect width="64" height="64" rx="14" fill="#0b0d11"/>
+  <text x="32" y="42" text-anchor="middle" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" font-size="27" font-weight="800" letter-spacing="-1" fill="#e6e8ec">JW</text>
+  <rect x="18" y="49" width="28" height="3" rx="1.5" fill="#7b93ff"/>
 </svg>
