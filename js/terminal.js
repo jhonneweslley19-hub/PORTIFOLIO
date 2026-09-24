@@ -4,7 +4,7 @@ import { html, toString } from "./dom.js";
  * Terminal interativo: o visitante explora o portfólio por comandos.
  * Suporta histórico (↑/↓), autocompletar (Tab) e Ctrl+L para limpar.
  */
-export function initTerminal({ profile, stack, projects, timeline, curriculum, periodAverage, getRepos, toggleTheme }) {
+export function initTerminal({ profile, stack, projects, timeline, curriculum, getRepos, toggleTheme }) {
   const root = document.querySelector("#terminal");
   const body = root.querySelector(".term-body");
   const out = root.querySelector(".term-out");
@@ -75,15 +75,12 @@ export function initTerminal({ profile, stack, projects, timeline, curriculum, p
       },
     },
     grade: {
-      desc: "grade curricular e notas",
-      run: () => {
-        const fmt = (n) => n.toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 2 });
-        return html`${curriculum.map((p) => {
-          const avg = periodAverage(p);
-          return html`<span class="hl">${p.label}</span> <span class="dim">(${p.period})</span>${avg != null ? html` — média <span class="pr">${fmt(avg)}</span>` : html` — <span class="cy">em andamento</span>`}\n${p.courses.map(
-            (c) => html`  ${typeof c.grade === "number" ? html`<span class="pr">${fmt(c.grade).padStart(4)}</span>` : html`<span class="dim"> ...</span>`}  ${c.name}\n`)}\n`;
-        })}`;
-      },
+      desc: "grade curricular",
+      run: () => html`${curriculum.map((p) => {
+        const done = p.status === "done";
+        return html`<span class="hl">${p.label}</span> <span class="dim">(${p.period})</span> — ${done ? html`<span class="pr">concluído</span>` : html`<span class="cy">em andamento</span>`}\n${p.courses.map(
+          (c) => html`  ${done ? html`<span class="pr">✔</span>` : html`<span class="dim">…</span>`} ${c.name}\n`)}\n`;
+      })}`,
     },
     jornada: {
       desc: "linha do tempo",

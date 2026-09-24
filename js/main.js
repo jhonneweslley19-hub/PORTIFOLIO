@@ -47,17 +47,8 @@ ${fields.map(([k, v]) => html`  ${k}: ${v},\n`)}};`;
 }
 
 /* ── Seções renderizadas a partir de data.js ────── */
-const fmtGrade = (n) => n.toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 2 });
-
-/** Média do último período concluído, calculada a partir da grade curricular. */
-function averageStat() {
-  const last = data.curriculum.findLast((p) => p.status === "done");
-  const avg = last && data.periodAverage(last);
-  return avg == null ? [] : [{ value: fmtGrade(avg), label: `média no ${last.label}` }];
-}
-
 function renderStats(extra = []) {
-  render("stats", [...data.stats, ...averageStat(), ...extra].filter((s) => s.value !== ""),
+  render("stats", [...data.stats, ...extra].filter((s) => s.value !== ""),
     (s) => html`<div><dt>${s.label}</dt><dd>${s.value}</dd></div>`);
 }
 
@@ -93,7 +84,6 @@ function renderSections() {
 
   render("curriculum", data.curriculum, (p) => {
     const hours = p.courses.reduce((sum, c) => sum + c.hours, 0);
-    const avg = data.periodAverage(p);
     return html`
     <article class="card period" data-status="${p.status}">
       <header>
@@ -103,12 +93,12 @@ function renderSections() {
       <ul>${p.courses.map((c) => html`
         <li>
           <span class="course">${c.name}<small>${c.code} · ${c.hours} h</small></span>
-          ${typeof c.grade === "number"
-            ? html`<span class="grade" title="nota final">${fmtGrade(c.grade)}</span>`
+          ${p.status === "done"
+            ? html`<span class="pill" data-status="concluído">concluída</span>`
             : html`<span class="pill" data-status="estudando">cursando</span>`}
         </li>`)}
       </ul>
-      <footer>${p.courses.length} disciplinas · ${hours} h${avg != null ? html` · média <strong>${fmtGrade(avg)}</strong>` : ""}</footer>
+      <footer>${p.courses.length} disciplinas · ${hours} h</footer>
     </article>`;
   });
 

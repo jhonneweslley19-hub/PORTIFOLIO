@@ -35,7 +35,6 @@ export const profile = {
 export const stats = [
   { value: "2º", label: "período de Eng. de Software" },
   { value: "JS", label: "linguagem principal" },
-  // a média do último período concluído é calculada a partir de `curriculum`
 ];
 
 /**
@@ -134,7 +133,7 @@ export const timeline = [
 
 /**
  * Grade curricular (conforme o histórico acadêmico).
- * status do período: "done" | "current". `grade` vazio = disciplina em andamento.
+ * status do período: "done" (concluído) | "current" (em andamento).
  */
 export const curriculum = [
   {
@@ -142,12 +141,12 @@ export const curriculum = [
     label: "1º período",
     status: "done",
     courses: [
-      { code: "DGT0284", name: "Fundamentos de Redes de Computadores", hours: 80, grade: 10 },
-      { code: "DGT0288", name: "Introdução à Segurança da Informação", hours: 80, grade: 10 },
-      { code: "DGT2198", name: "Matemática e Lógica", hours: 80, grade: 10 },
-      { code: "DGT3285", name: "Introdução à Programação de Computadores", hours: 80, grade: 10 },
-      { code: "DGT3290", name: "Computação em Nuvem", hours: 80, grade: 9.8 },
-      { code: "DGT5129", name: "Labvida em Engenharia de Software 1", hours: 10, grade: 10 },
+      { code: "DGT0284", name: "Fundamentos de Redes de Computadores", hours: 80 },
+      { code: "DGT0288", name: "Introdução à Segurança da Informação", hours: 80 },
+      { code: "DGT2198", name: "Matemática e Lógica", hours: 80 },
+      { code: "DGT3285", name: "Introdução à Programação de Computadores", hours: 80 },
+      { code: "DGT3290", name: "Computação em Nuvem", hours: 80 },
+      { code: "DGT5129", name: "Labvida em Engenharia de Software 1", hours: 10 },
     ],
   },
   {
@@ -164,13 +163,6 @@ export const curriculum = [
     ],
   },
 ];
-
-/** Média das notas de um período, ponderada pela carga horária. */
-export function periodAverage(period) {
-  const graded = period.courses.filter((c) => typeof c.grade === "number");
-  const hours = graded.reduce((sum, c) => sum + c.hours, 0);
-  return hours ? graded.reduce((sum, c) => sum + c.grade * c.hours, 0) / hours : null;
-}
 
 /** Certificados e cursos. */
 export const certificates = [

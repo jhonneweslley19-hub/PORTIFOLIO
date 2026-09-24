@@ -405,9 +405,7 @@
     li { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: .65rem 0; border-top: 1px dashed var(--border); }
     .course { display: grid; font-size: .93rem; }
     small { font-family: var(--font-mono); font-size: .72rem; color: var(--muted); }
-    .grade { font-family: var(--font-mono); font-weight: 700; color: var(--ok); }
     footer { font-size: .85rem; color: var(--muted); padding-top: .75rem; border-top: 1px solid var(--border); }
-    strong { color: var(--ok); }
   }
 
   .certs li {
