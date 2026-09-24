@@ -7,6 +7,7 @@ const CORE = [
   "./", "index.html", "404.html", "css/styles.css", "manifest.webmanifest",
   "assets/favicon.svg", "assets/fonts/inter.woff2", "assets/fonts/jetbrains-mono.woff2",
   "js/main.js", "js/data.js", "js/dom.js", "js/terminal.js", "js/github.js", "js/palette.js",
+  "js/ui.js", "js/projects.js", "js/contact.js",
 ];
 
 self.addEventListener("install", (e) => {

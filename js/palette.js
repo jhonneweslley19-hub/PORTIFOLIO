@@ -1,5 +1,5 @@
 /** Paleta de comandos estilo “Ctrl/⌘ + K”. */
-export function initPalette({ profile, projects, copyEmail, runCommand }) {
+export function initPalette({ profile, projects, copyEmail, runCommand, openProject }) {
   const dialog = document.querySelector(".palette");
   const input = dialog.querySelector("input");
   const list = dialog.querySelector("ul");
@@ -18,11 +18,11 @@ export function initPalette({ profile, projects, copyEmail, runCommand }) {
     { label: "Terminal", hint: "seção", run: goto("terminal") },
     { label: "Contato", hint: "seção", run: goto("contato") },
     ...(profile.cv ? [{ label: "Baixar currículo (PDF)", hint: "ação", run: open(profile.cv) }] : []),
-    ...projects.filter((p) => p.repo || p.demo)
-      .map((p) => ({ label: p.title, hint: "projeto", run: open(p.demo || p.repo) })),
+    ...projects.map((p) => ({ label: p.title, hint: "projeto", run: () => openProject(p.slug) })),
     { label: "Rodar “help” no terminal", hint: "terminal", run: inTerminal("help") },
     { label: "Alternar tema claro/escuro", hint: "ação", run: () => document.getElementById("theme-toggle").click() },
     { label: "Copiar e-mail", hint: "ação", run: copyEmail },
+    { label: "Atalhos de teclado", hint: "ajuda", run: () => document.querySelector("dialog.shortcuts").showModal() },
     ...Object.entries(profile.links).filter(([, u]) => u)
       .map(([k, u]) => ({ label: `Abrir ${k === "github" ? "GitHub" : k === "linkedin" ? "LinkedIn" : k}`, hint: "link", run: open(u) })),
   ];
@@ -74,4 +74,6 @@ export function initPalette({ profile, projects, copyEmail, runCommand }) {
       dialog.open ? dialog.close() : show();
     }
   });
+
+  return { open: show };
 }

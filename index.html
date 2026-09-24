@@ -68,8 +68,34 @@
         <li><a href="#sobre">Sobre</a></li>
         <li><a href="#formacao">Formação</a></li>
         <li><a href="#contato">Contato</a></li>
+        <li>
+          <button class="more-btn" type="button" popovertarget="more-menu" aria-haspopup="menu">
+            Mais <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </li>
       </ul>
+      <span class="nav-indicator" aria-hidden="true"></span>
     </nav>
+
+    <!-- Menu "Mais" (Popover API) -->
+    <div id="more-menu" class="dropdown" popover role="menu" aria-label="Mais opções">
+      <a role="menuitem" href="#terminal">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="m5 8 4 4-4 4M12 16h7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Terminal interativo<small>Explore por linha de comando</small></span>
+      </a>
+      <button role="menuitem" type="button" data-open-palette>
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span>Busca rápida<small>Ctrl + K</small></span>
+      </button>
+      <button role="menuitem" type="button" data-open-shortcuts>
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M7 10h.01M11 10h.01M15 10h.01M7 14h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span>Atalhos de teclado<small>Pressione ?</small></span>
+      </button>
+      <button role="menuitem" type="button" data-copy-email>
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+        <span>Copiar e-mail<small data-bind="email"></small></span>
+      </button>
+    </div>
     <div class="nav-actions">
       <button class="icon-btn kbd-btn" type="button" data-open-palette aria-keyshortcuts="Control+K">
         <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
@@ -115,8 +141,17 @@
       </div>
 
       <aside class="hero-card" aria-label="Resumo do perfil">
-        <div class="window-bar"><i></i><i></i><i></i><span>perfil.ts</span></div>
-        <pre><code data-render="profile-code"></code></pre>
+        <div class="window-bar tabs-bar">
+          <i></i><i></i><i></i>
+          <div role="tablist" aria-label="Arquivos" data-tabs="hero">
+            <button role="tab" type="button" id="tab-perfil" aria-controls="panel-perfil" aria-selected="true">perfil.ts</button>
+            <button role="tab" type="button" id="tab-stack" aria-controls="panel-stack" aria-selected="false" tabindex="-1">stack.json</button>
+            <button role="tab" type="button" id="tab-contato" aria-controls="panel-contato" aria-selected="false" tabindex="-1">contato.sh</button>
+          </div>
+        </div>
+        <pre role="tabpanel" id="panel-perfil" aria-labelledby="tab-perfil" tabindex="0"><code data-render="code-perfil"></code></pre>
+        <pre role="tabpanel" id="panel-stack" aria-labelledby="tab-stack" tabindex="0" hidden><code data-render="code-stack"></code></pre>
+        <pre role="tabpanel" id="panel-contato" aria-labelledby="tab-contato" tabindex="0" hidden><code data-render="code-contato"></code></pre>
       </aside>
     </section>
 
@@ -147,6 +182,7 @@
       <div class="about">
         <div class="about-text" data-render="about"></div>
         <div class="skills">
+          <p class="hint">Clique numa tecnologia para ver em quais projetos eu a usei.</p>
           <dl data-render="skills"></dl>
           <div class="learning" data-show="learning">
             <h3>Estudando agora</h3>
@@ -204,17 +240,36 @@
         <div>
           <p class="kicker">Contato</p>
           <h2>Vamos conversar?</h2>
-          <p class="muted">Estou aberto a estágios, projetos e trocas sobre tecnologia. Respondo por e-mail ou LinkedIn.</p>
+          <p class="muted">Estou aberto a estágios, projetos e trocas sobre tecnologia. Escreva ao lado e o e-mail já sai pronto, ou me encontre no LinkedIn.</p>
         </div>
-        <div class="contact-actions">
-          <a class="btn primary" href="mailto:jhonne.weslley19@gmail.com" data-mailto>Enviar e-mail</a>
-          <button class="btn ghost" type="button" data-copy-email>
-            <span data-bind="email"></span>
-            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10" fill="none" stroke="currentColor" stroke-width="2"/></svg>
-            <span class="sr-only">copiar</span>
-          </button>
+        <form class="composer" data-composer>
+          <label>
+            <span>Seu nome</span>
+            <input name="nome" autocomplete="name" placeholder="Como posso te chamar?" />
+          </label>
+          <fieldset>
+            <legend>Assunto</legend>
+            <div class="segmented">
+              <label><input type="radio" name="assunto" value="Oportunidade de estágio" checked /><span>Estágio</span></label>
+              <label><input type="radio" name="assunto" value="Proposta de projeto" /><span>Projeto</span></label>
+              <label><input type="radio" name="assunto" value="Contato pelo portfólio" /><span>Outro</span></label>
+            </div>
+          </fieldset>
+          <label>
+            <span>Mensagem</span>
+            <textarea name="mensagem" rows="4" maxlength="1500" placeholder="Escreva sua mensagem…" required></textarea>
+            <small class="counter" aria-live="polite">0 / 1500</small>
+          </label>
+          <div class="composer-actions">
+            <button class="btn primary" type="submit">Abrir no e-mail</button>
+            <button class="btn ghost" type="button" data-copy-email title="Copiar e-mail">
+              <span data-bind="email"></span>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+            </button>
+          </div>
+          <p class="muted fine">O botão abre seu aplicativo de e-mail com a mensagem pronta. Nada é enviado por este site.</p>
           <div class="socials" data-render="socials"></div>
-        </div>
+        </form>
       </div>
     </section>
   </main>
@@ -232,6 +287,27 @@
       <p class="palette-hint"><kbd>↑</kbd><kbd>↓</kbd> navegar · <kbd>Enter</kbd> abrir · <kbd>Esc</kbd> fechar</p>
     </form>
   </dialog>
+
+  <!-- Painel de detalhes do projeto -->
+  <dialog class="drawer" aria-labelledby="drawer-title">
+    <div class="drawer-inner" data-render="drawer"></div>
+  </dialog>
+
+  <!-- Onde cada tecnologia foi usada -->
+  <div id="skill-pop" class="skill-pop" popover></div>
+
+  <!-- Atalhos de teclado -->
+  <dialog class="shortcuts" aria-labelledby="shortcuts-title">
+    <header>
+      <h2 id="shortcuts-title">Atalhos de teclado</h2>
+      <form method="dialog"><button class="icon-btn" aria-label="Fechar">✕</button></form>
+    </header>
+    <dl data-render="shortcuts"></dl>
+  </dialog>
+
+  <a class="to-top" href="#topo" aria-label="Voltar ao topo">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="m6 15 6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
 
   <div class="toast" role="status" aria-live="polite"></div>
 </body>

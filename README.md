@@ -18,6 +18,12 @@ Sem framework no navegador: HTML, CSS e **JavaScript moderno (ES Modules)**.
 | **Terminal interativo** (`help`, `neofetch`, histórico ↑/↓, Tab, Ctrl+L) | `js/terminal.js` |
 | Repositórios do GitHub, gerados no deploy com fallback para a API | `js/github.js`, `scripts/fetch-repos.mjs` |
 | Paleta de comandos <kbd>Ctrl</kbd>+<kbd>K</kbd> | `js/palette.js` |
+| Painel de detalhes de cada projeto, com link direto (`#projeto/slug`) | `js/projects.js` |
+| Competências clicáveis que mostram onde cada tecnologia foi usada | `js/projects.js` |
+| Abas acessíveis (WAI-ARIA) no cartão do topo e na formação | `js/ui.js` |
+| Menu "Mais" e indicador animado da seção atual | `js/ui.js` |
+| Atalhos de teclado estilo GitHub (<kbd>?</kbd>, <kbd>g</kbd> <kbd>p</kbd>…) | `js/ui.js` |
+| Formulário de contato que monta o e-mail, com rascunho salvo | `js/contact.js` |
 | Menu do celular com Popover API + `@starting-style` | `index.html`, `css/styles.css` |
 | Tema claro/escuro com View Transitions API | `js/main.js` |
 | CSS nesting, `@layer`, `color-mix()`, `oklab` | `css/styles.css` |

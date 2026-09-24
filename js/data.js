@@ -32,13 +32,21 @@ export const profile = {
 
 /**
  * Projetos em destaque (os repositórios públicos do GitHub aparecem sozinhos abaixo deles).
+ * `slug`: identificador usado no link direto (#projeto/slug).
+ * `problem` / `solution`: aparecem no painel "Ver detalhes".
  * `highlights`: 2–4 frases curtas sobre o que você fez / decisões técnicas.
+ * `uses`: tecnologias usadas que não aparecem nas etiquetas do cartão.
  */
 export const projects = [
   {
+    slug: "calculadora-nutri",
     title: "Calculadora Nutri",
     summary:
       "Aplicação web que transforma a receita de um produto alimentício em rótulo nutricional no padrão ANVISA (IN 75/2020), com exportação em PNG e PDF.",
+    problem:
+      "O cálculo era feito numa planilha do Google Sheets com Apps Script. As fórmulas tinham dois erros de cálculo, e a busca automática no USDA aceitava sempre o primeiro resultado, o que gerava associações erradas (\"açúcar cristal\" virava \"HONEY + AJI CRISTAL\").",
+    solution:
+      "Uma aplicação web em React e TypeScript com Supabase: o motor de cálculo ficou isolado e testado, a busca no USDA passou a mostrar os melhores candidatos para revisão e o rótulo pode ser exportado em PNG ou PDF.",
     highlights: [
       "Migrei uma planilha com Apps Script para uma aplicação web e corrigi dois erros de cálculo da versão original.",
       "Motor de cálculo isolado e coberto por testes com os valores reais da planilha.",
@@ -46,19 +54,26 @@ export const projects = [
       "Chave de API protegida no servidor com Supabase Edge Functions.",
     ],
     tags: ["React", "TypeScript", "Supabase", "Tailwind CSS", "Vitest"],
+    uses: ["PostgreSQL", "Edge Functions", "HTML", "CSS", "Git e GitHub"], // tecnologias de bastidor (ligam competências a projetos)
     repo: "https://github.com/jhonneweslley19-hub/APP-CALCULADORANUTRI",
     demo: "", // URL do app no ar, quando quiser divulgar
   },
   {
+    slug: "portfolio",
     title: "Este portfólio",
     summary:
       "Site pessoal feito sem frameworks, com foco em desempenho, acessibilidade e automação.",
+    problem:
+      "Reunir projetos, formação e contato num lugar só, rápido e acessível, que também servisse de exemplo de como eu escrevo código.",
+    solution:
+      "Um site em JavaScript puro, sem frameworks, com todo o conteúdo em um arquivo de dados, testes automatizados, auditoria de qualidade e publicação contínua.",
     highlights: [
       "JavaScript moderno com ES Modules e conteúdo centralizado em um único arquivo de dados.",
       "Testes de ponta a ponta com Playwright e auditoria Lighthouse a cada push.",
       "Funciona offline (PWA), tem busca rápida com Ctrl+K e um terminal interativo.",
     ],
     tags: ["JavaScript", "CSS", "Playwright", "GitHub Actions"],
+    uses: ["HTML", "Acessibilidade", "PWA", "Git e GitHub"],
     repo: "https://github.com/jhonneweslley19-hub/PORTIFOLIO",
     demo: "",
   },

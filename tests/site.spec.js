@@ -100,18 +100,25 @@ test.describe("celular", () => {
   });
 });
 
-test("formação mostra os períodos e o status das disciplinas, sem notas", async ({ page }) => {
+test("formação: abas por período, abrindo no período atual e sem notas", async ({ page }) => {
   await page.goto("/#formacao");
-  const periods = page.locator('[data-render="curriculum"] .period');
-  await expect(periods).toHaveCount(2);
-  await expect(periods.first()).toContainText("concluído");
-  await expect(periods.nth(1)).toContainText("em andamento");
+  const tabs = page.locator(".period-tabs [role=tab]");
+  await expect(tabs).toHaveCount(2);
+  await expect(tabs.nth(1)).toHaveAttribute("aria-selected", "true");
+  await expect(page.locator("#ppanel-1")).toBeVisible();
+  await expect(page.locator("#ppanel-1")).toContainText("Banco de Dados");
+
+  await tabs.nth(1).focus();
+  await page.keyboard.press("ArrowLeft");
+  await expect(tabs.nth(0)).toHaveAttribute("aria-selected", "true");
+  await expect(page.locator("#ppanel-0")).toContainText("Computação em Nuvem");
+  await expect(page.locator("#ppanel-1")).toBeHidden();
   await expect(page.locator("main")).not.toContainText("média");
 
   const input = page.locator("#term-in");
   await input.fill("grade");
   await input.press("Enter");
-  await expect(page.locator(".term-out")).toContainText("Computação em Nuvem");
+  await expect(page.locator(".term-out")).toContainText("Bacharelado em Engenharia de Software");
 });
 
 test("projetos em destaque mostram resumo, destaques e links", async ({ page }) => {
@@ -120,4 +127,92 @@ test("projetos em destaque mostram resumo, destaques e links", async ({ page }) 
   await expect(first.locator("h3")).toHaveText("Calculadora Nutri");
   await expect(first.locator(".highlights li")).toHaveCount(4);
   await expect(first.getByRole("link", { name: "Código" })).toHaveAttribute("href", /APP-CALCULADORANUTRI/);
+});
+
+test("painel de detalhes: abre, navega, fecha e atualiza o link", async ({ page }) => {
+  await page.goto("/#projetos");
+  await page.locator('#card-calculadora-nutri [data-project]').click();
+  const drawer = page.locator("dialog.drawer");
+  await expect(drawer).toBeVisible();
+  await expect(drawer.locator("h2")).toHaveText("Calculadora Nutri");
+  await expect(drawer).toContainText("O problema");
+  await expect(page).toHaveURL(/#projeto\/calculadora-nutri$/);
+
+  await drawer.getByRole("button", { name: /Este portfólio →/ }).click();
+  await expect(drawer.locator("h2")).toHaveText("Este portfólio");
+  await expect(page).toHaveURL(/#projeto\/portfolio$/);
+
+  await page.keyboard.press("Escape");
+  await expect(drawer).toBeHidden();
+  await expect(page).toHaveURL(/#projetos$/);
+});
+
+test("link direto abre o painel do projeto", async ({ page }) => {
+  await page.goto("/#projeto/portfolio");
+  await expect(page.locator("dialog.drawer h2")).toHaveText("Este portfólio");
+});
+
+test("competência clicável mostra onde foi usada e abre o projeto", async ({ page }) => {
+  await page.goto("/#sobre");
+  await page.locator('[data-skill="React"]').click();
+  const pop = page.locator("#skill-pop");
+  await expect(pop).toBeVisible();
+  await expect(pop).toContainText("Calculadora Nutri");
+  await pop.getByRole("button", { name: /Calculadora Nutri/ }).click();
+  await expect(page.locator("dialog.drawer h2")).toHaveText("Calculadora Nutri");
+});
+
+test("cartão do topo troca de arquivo pelas abas", async ({ page, isMobile }) => {
+  test.skip(isMobile, "o cartão fica oculto no celular");
+  await page.goto("/");
+  await page.getByRole("tab", { name: "stack.json" }).click();
+  await expect(page.locator("#panel-stack")).toBeVisible();
+  await expect(page.locator("#panel-stack")).toContainText("Linguagens");
+  await expect(page.locator("#panel-perfil")).toBeHidden();
+});
+
+test("formulário de contato conta caracteres e guarda o rascunho", async ({ page }) => {
+  await page.goto("/#contato");
+  const form = page.locator("[data-composer]");
+  await form.locator("input[name=nome]").fill("Ana");
+  await form.locator("textarea").fill("Olá, Jhonne!");
+  await expect(form.locator(".counter")).toHaveText("12 / 1500");
+  await page.reload();
+  await expect(form.locator("textarea")).toHaveValue("Olá, Jhonne!");
+  await expect(form.locator("input[name=nome]")).toHaveValue("Ana");
+});
+
+test.describe("atalhos e menus (desktop)", () => {
+  test.skip(({ isMobile }) => isMobile, "atalhos de teclado e menu Mais são recursos de desktop");
+
+  test("? mostra os atalhos e g + c vai para Contato", async ({ page }) => {
+    await page.goto("/");
+    await page.keyboard.press("?");
+    const dialog = page.locator("dialog.shortcuts");
+    await expect(dialog).toBeVisible();
+    await expect(dialog).toContainText("Ir para Projetos");
+    await page.keyboard.press("Escape");
+    await expect(dialog).toBeHidden();
+
+    await page.keyboard.press("g");
+    await page.keyboard.press("c");
+    await expect(page.locator("#contato")).toBeInViewport();
+  });
+
+  test("atalhos não disparam enquanto se digita", async ({ page }) => {
+    await page.goto("/#contato");
+    await page.locator("textarea").fill("");
+    await page.locator("textarea").press("?");
+    await expect(page.locator("dialog.shortcuts")).toBeHidden();
+  });
+
+  test("menu Mais abre e leva aos atalhos", async ({ page }) => {
+    await page.goto("/");
+    await page.getByRole("button", { name: "Mais" }).click();
+    const menu = page.locator("#more-menu");
+    await expect(menu).toBeVisible();
+    await menu.getByRole("menuitem", { name: /Atalhos de teclado/ }).click();
+    await expect(menu).toBeHidden();
+    await expect(page.locator("dialog.shortcuts")).toBeVisible();
+  });
 });
