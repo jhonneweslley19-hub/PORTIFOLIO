@@ -11,7 +11,7 @@ export const profile = {
   name: "Jhonne Weslley",
   role: "Estudante de Engenharia de Software",
   semester: "2º período",
-  university: "", // ex.: "Universidade ..."
+  university: "Estácio",
   city: "",       // ex.: "Recife, PE"
   // Frases que se alternam no topo do site
   roles: ["Engenharia de Software", "Desenvolvimento Web", "JavaScript", "Aprendendo em público"],
