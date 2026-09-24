@@ -100,3 +100,17 @@ test.describe("celular", () => {
     await expect(page.locator("#projetos")).toBeInViewport();
   });
 });
+
+test("grade curricular mostra os períodos, as notas e a média", async ({ page }) => {
+  await page.goto("/#jornada");
+  const periods = page.locator('[data-render="curriculum"] .period');
+  await expect(periods).toHaveCount(2);
+  await expect(periods.first()).toContainText("média 9,96");
+  await expect(periods.nth(1)).toContainText("cursando");
+  await expect(page.locator(".stats")).toContainText("9,96");
+
+  const input = page.locator("#term-in");
+  await input.fill("grade");
+  await input.press("Enter");
+  await expect(page.locator(".term-out")).toContainText("Computação em Nuvem");
+});

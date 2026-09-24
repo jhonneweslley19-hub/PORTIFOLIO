@@ -320,6 +320,7 @@
     font-family: var(--font-mono); font-size: .7rem; padding: .15rem .55rem; border-radius: 999px;
     &[data-status="uso"] { color: var(--ok); background: color-mix(in oklab, var(--ok) 14%, transparent); }
     &[data-status="estudando"] { color: var(--warn); background: color-mix(in oklab, var(--warn) 14%, transparent); }
+    &[data-status="concluído"] { color: var(--accent-2); background: color-mix(in oklab, var(--accent-2) 14%, transparent); }
   }
 
   /* PROJETOS / REPOS */
@@ -391,6 +392,24 @@
     padding: .15rem .55rem; border-radius: 999px;
     background: color-mix(in oklab, var(--accent) 15%, transparent); color: var(--accent);
   }
+  /* GRADE CURRICULAR */
+  .curriculum { grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr)); align-items: start; }
+  .period {
+    display: grid; gap: 1rem;
+    header { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+    h4 { font-size: 1.1rem; }
+    .dim { color: var(--muted); font-weight: 400; font-family: var(--font-mono); font-size: .85rem; }
+    .badge { margin: 0; }
+    &[data-status="current"] .badge { color: var(--warn); background: color-mix(in oklab, var(--warn) 14%, transparent); }
+    ul { display: grid; }
+    li { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: .65rem 0; border-top: 1px dashed var(--border); }
+    .course { display: grid; font-size: .93rem; }
+    small { font-family: var(--font-mono); font-size: .72rem; color: var(--muted); }
+    .grade { font-family: var(--font-mono); font-weight: 700; color: var(--ok); }
+    footer { font-size: .85rem; color: var(--muted); padding-top: .75rem; border-top: 1px solid var(--border); }
+    strong { color: var(--ok); }
+  }
+
   .certs li {
     display: flex; justify-content: space-between; gap: 1rem; padding: .9rem 0; border-bottom: 1px solid var(--border);
     span { color: var(--muted); font-family: var(--font-mono); font-size: .85rem; }

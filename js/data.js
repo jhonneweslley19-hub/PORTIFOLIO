@@ -10,7 +10,7 @@
 export const profile = {
   name: "Jhonne Weslley",
   role: "Estudante de Engenharia de Software",
-  semester: "",   // ex.: "3º semestre"
+  semester: "2º período",
   university: "", // ex.: "Universidade ..."
   city: "",       // ex.: "Recife, PE"
   // Frases que se alternam no topo do site
@@ -33,21 +33,26 @@ export const profile = {
 
 /** Indicadores do topo. O número de repositórios é adicionado ao vivo pela API do GitHub. */
 export const stats = [
-  { value: "ES", label: "Engenharia de Software" },
+  { value: "2º", label: "período de Eng. de Software" },
   { value: "JS", label: "linguagem principal" },
+  // a média do último período concluído é calculada a partir de `curriculum`
 ];
 
 /**
  * Stack. Liste só o que você realmente usa ou estuda.
- * status: "uso" | "estudando"
+ * status: "uso" | "estudando" | "concluído" (disciplina já aprovada)
  */
 export const stack = [
   {
     group: "Linguagens",
     items: [
       { name: "JavaScript", status: "uso" },
+      { name: "TypeScript", status: "uso" },
       { name: "HTML", status: "uso" },
       { name: "CSS", status: "uso" },
+      { name: "Python", status: "estudando" },
+      { name: "PHP", status: "estudando" },
+      { name: "SQL", status: "estudando" },
     ],
   },
   {
@@ -55,15 +60,20 @@ export const stack = [
     items: [
       { name: "Git", status: "uso" },
       { name: "GitHub", status: "uso" },
+      { name: "React", status: "uso" },
+      { name: "Supabase", status: "uso" },
       { name: "GitHub Actions", status: "estudando" },
     ],
   },
   {
     group: "Fundamentos",
     items: [
-      { name: "Lógica de programação", status: "estudando" },
-      { name: "Estruturas de dados", status: "estudando" },
-      { name: "Engenharia de requisitos", status: "estudando" },
+      { name: "Redes de computadores", status: "concluído" },
+      { name: "Segurança da informação", status: "concluído" },
+      { name: "Computação em nuvem", status: "concluído" },
+      { name: "Matemática e lógica", status: "concluído" },
+      { name: "Banco de dados", status: "estudando" },
+      { name: "Arquitetura de computadores", status: "estudando" },
     ],
   },
 ];
@@ -103,9 +113,15 @@ export const projects = [
  */
 export const timeline = [
   {
-    period: "Agora",
-    title: "Graduação em Engenharia de Software",
-    text: "Estudando fundamentos de programação, engenharia de requisitos e desenvolvimento de software.",
+    period: "2026.1 · 1º período",
+    title: "Início da graduação em Engenharia de Software",
+    text: "Aprovado nas 6 disciplinas: redes, segurança da informação, computação em nuvem, programação, matemática e lógica.",
+    status: "done",
+  },
+  {
+    period: "2026.3 · 2º período",
+    title: "Banco de dados, web e Python",
+    text: "Cursando banco de dados, desenvolvimento web (HTML5, CSS, JavaScript e PHP), paradigmas de programação em Python e arquitetura de computadores.",
     status: "current",
   },
   {
@@ -115,6 +131,46 @@ export const timeline = [
     status: "next",
   },
 ];
+
+/**
+ * Grade curricular (conforme o histórico acadêmico).
+ * status do período: "done" | "current". `grade` vazio = disciplina em andamento.
+ */
+export const curriculum = [
+  {
+    period: "2026.1",
+    label: "1º período",
+    status: "done",
+    courses: [
+      { code: "DGT0284", name: "Fundamentos de Redes de Computadores", hours: 80, grade: 10 },
+      { code: "DGT0288", name: "Introdução à Segurança da Informação", hours: 80, grade: 10 },
+      { code: "DGT2198", name: "Matemática e Lógica", hours: 80, grade: 10 },
+      { code: "DGT3285", name: "Introdução à Programação de Computadores", hours: 80, grade: 10 },
+      { code: "DGT3290", name: "Computação em Nuvem", hours: 80, grade: 9.8 },
+      { code: "DGT5129", name: "Labvida em Engenharia de Software 1", hours: 10, grade: 10 },
+    ],
+  },
+  {
+    period: "2026.3",
+    label: "2º período",
+    status: "current",
+    courses: [
+      { code: "DGT0281", name: "Arquitetura de Computadores", hours: 80 },
+      { code: "DGT2191", name: "Banco de Dados", hours: 80 },
+      { code: "DGT3288", name: "Paradigmas de Linguagens de Programação em Python", hours: 80 },
+      { code: "DGT3291", name: "Desenvolvimento Web em HTML5, CSS, JavaScript e PHP", hours: 80 },
+      { code: "DGT5130", name: "Labvida em Engenharia de Software 2", hours: 1 }, // o histórico mostra 1 h — confirmar com a secretaria
+      { code: "DGT5887", name: "Sistemas de Informação e Sociedade", hours: 80 },
+    ],
+  },
+];
+
+/** Média das notas de um período, ponderada pela carga horária. */
+export function periodAverage(period) {
+  const graded = period.courses.filter((c) => typeof c.grade === "number");
+  const hours = graded.reduce((sum, c) => sum + c.hours, 0);
+  return hours ? graded.reduce((sum, c) => sum + c.grade * c.hours, 0) / hours : null;
+}
 
 /** Certificados e cursos. */
 export const certificates = [
