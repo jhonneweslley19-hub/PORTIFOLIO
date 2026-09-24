@@ -1,5 +1,17 @@
 @layer reset, tokens, base, components;
 
+/* Fontes locais (variáveis, subset latin) — veja scripts/copy-fonts.mjs */
+@font-face {
+  font-family: "Inter";
+  src: url("../assets/fonts/inter.woff2") format("woff2");
+  font-weight: 100 900; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("../assets/fonts/jetbrains-mono.woff2") format("woff2");
+  font-weight: 100 800; font-style: normal; font-display: swap;
+}
+
 /* ────────────────────────────────────────────
    Tokens
    ──────────────────────────────────────────── */
@@ -151,11 +163,30 @@
   #theme-toggle .sun { display: none; }
   [data-theme="light"] #theme-toggle { .sun { display: block; } .moon { display: none; } }
 
+  .menu-btn { display: none; }
   @media (max-width: 860px) {
     .nav nav { display: none; }
     .nav-actions { margin-left: auto; }
     .kbd-btn kbd { display: none; }
+    .menu-btn { display: inline-grid; }
   }
+
+  /* Menu do celular — Popover API (fecha com Esc ou clique fora, sem JS) */
+  .mobile-menu {
+    inset: 68px 12px auto auto; margin: 0; padding: .5rem;
+    width: min(260px, calc(100vw - 24px));
+    background: var(--surface); color: var(--text);
+    border: 1px solid var(--border); border-radius: var(--radius);
+    box-shadow: 0 30px 60px -20px rgb(0 0 0 / .5);
+    opacity: 0; translate: 0 -8px;
+    transition: opacity .2s, translate .2s var(--ease), display .2s allow-discrete, overlay .2s allow-discrete;
+    &:popover-open { opacity: 1; translate: 0 0; }
+    a {
+      display: block; padding: .8rem 1rem; border-radius: 10px; text-decoration: none; font-weight: 500;
+      &:hover, &[aria-current="true"] { background: color-mix(in oklab, var(--accent) 12%, transparent); color: var(--accent); }
+    }
+  }
+  @starting-style { .mobile-menu:popover-open { opacity: 0; translate: 0 -8px; } }
 
   /* HERO */
   .hero {
@@ -294,7 +325,7 @@
   /* PROJETOS / REPOS */
   .project, .repo {
     display: flex; flex-direction: column; gap: .6rem; text-decoration: none;
-    h4 { font-size: 1.1rem; }
+    h3 { font-size: 1.1rem; }
     p { color: var(--muted); font-size: .93rem; flex: 1; }
     .meta { display: flex; flex-wrap: wrap; gap: .75rem; font-family: var(--font-mono); font-size: .75rem; color: var(--muted); }
   }

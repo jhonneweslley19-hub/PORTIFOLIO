@@ -35,6 +35,25 @@ export function initTerminal({ profile, stack, projects, timeline, getRepos, tog
       desc: "resumo rápido",
       run: () => html`<span class="cy">${profile.name}</span> — ${profile.role}${profile.university ? ` · ${profile.university}` : ""}`,
     },
+    neofetch: {
+      desc: "ficha técnica estilo Linux",
+      run: () => {
+        const art = ["   ___ _    _  ", "  |_  | |  | | ", "    | | |  | | ", "    | | |/\\| | ", "/\\__/ \\  /\\  / ", "\\____/ \\/  \\/  "];
+        const using = stack.flatMap((g) => g.items).filter((i) => i.status === "uso").map((i) => i.name);
+        const info = [
+          html`<span class="hl">visitante</span>@<span class="hl">jhonne</span>`,
+          html`<span class="dim">──────────────</span>`,
+          html`<span class="cy">Nome</span>: ${profile.name}`,
+          html`<span class="cy">Curso</span>: Engenharia de Software`,
+          profile.university && html`<span class="cy">Faculdade</span>: ${profile.university}`,
+          html`<span class="cy">Stack</span>: ${using.join(", ")}`,
+          html`<span class="cy">Shell</span>: portfolio-sh (JavaScript)`,
+          html`<span class="cy">Uptime</span>: ${Math.round(performance.now() / 1000)}s nesta página`,
+        ].filter(Boolean);
+        return html`${Array.from({ length: Math.max(art.length, info.length) }, (_, n) =>
+          html`<span class="hl">${(art[n] ?? "").padEnd(18)}</span>${info[n] ?? ""}\n`)}`;
+      },
+    },
     stack: {
       desc: "tecnologias que uso e estudo",
       run: () => html`${stack.map((g) => html`<span class="hl">${g.group}</span>\n${g.items.map(
@@ -66,6 +85,9 @@ export function initTerminal({ profile, stack, projects, timeline, getRepos, tog
     },
     github: { desc: "abre meu GitHub", run: () => (window.open(profile.links.github, "_blank", "noopener"), "abrindo GitHub…") },
     linkedin: { desc: "abre meu LinkedIn", run: () => (window.open(profile.links.linkedin, "_blank", "noopener"), "abrindo LinkedIn…") },
+    ...(profile.cv && {
+      cv: { desc: "baixa meu currículo (PDF)", run: () => (window.open(profile.cv, "_blank", "noopener"), "abrindo currículo…") },
+    }),
     tema: { desc: "alterna claro/escuro", run: () => (toggleTheme(), "tema alternado ✔") },
     data: { desc: "data e hora atuais", run: () => new Date().toLocaleString("pt-BR", { dateStyle: "full", timeStyle: "short" }) },
     clear: { desc: "limpa a tela", run: () => (out.replaceChildren(), null) },

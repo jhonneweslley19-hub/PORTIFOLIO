@@ -3,6 +3,8 @@ name: Deploy no GitHub Pages
 on:
   push:
     branches: [main]
+  schedule:
+    - cron: "0 9 * * *" # todo dia: atualiza a lista de repositórios do GitHub
   workflow_dispatch:
 
 permissions:
@@ -12,19 +14,34 @@ permissions:
 
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
+  ci:
+    if: github.event_name != 'schedule'
+    uses: ./.github/workflows/ci.yml
+
   deploy:
+    needs: ci
+    # roda após o CI passar, ou direto na atualização diária agendada
+    if: ${{ !cancelled() && (needs.ci.result == 'success' || needs.ci.result == 'skipped') }}
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - name: Gera data/repos.json
+        run: node scripts/fetch-repos.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Monta _site e carimba a versão do cache
+        run: node scripts/build.mjs
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
       - id: deployment
         uses: actions/deploy-pages@v4

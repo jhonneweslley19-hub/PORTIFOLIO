@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>404 · Página não encontrada</title>
+  <meta name="robots" content="noindex" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230a0d14'/%3E%3Cpath d='M22 20 10 32l12 12M42 20l12 12-12 12M36 16l-8 32' fill='none' stroke='%237c6cff' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <!-- Página autocontida: o GitHub Pages a serve em qualquer caminho, então nada de arquivos relativos -->
+  <style>
+    :root { --bg:#0a0d14; --surface:#07090f; --border:#232b3f; --text:#e7eaf3; --muted:#8b93a9; --accent:#7c6cff; --accent-2:#22d3ee; --ok:#34d399; --err:#ff7a7a; color-scheme: dark; }
+    @media (prefers-color-scheme: light) {
+      :root:not([data-theme="dark"]) { --bg:#f6f7fb; --text:#0d1120; --muted:#586079; --accent:#5b4bdb; color-scheme: light; }
+    }
+    * { box-sizing: border-box; margin: 0; }
+    body {
+      min-height: 100svh; display: grid; place-items: center; padding: 16px;
+      background: radial-gradient(50% 40% at 50% 0%, color-mix(in oklab, var(--accent) 25%, transparent), transparent 70%), var(--bg);
+      color: var(--text); font-family: ui-monospace, "JetBrains Mono", SFMono-Regular, Menlo, monospace;
+    }
+    main { width: min(100%, 620px); text-align: center; }
+    h1 {
+      font-size: clamp(5rem, 22vw, 9rem); line-height: 1; letter-spacing: -.06em;
+      background: linear-gradient(95deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .term { margin: 2rem 0; text-align: left; background: var(--surface); color: #d7dcea; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+    .bar { display: flex; gap: 6px; padding: .7rem 1rem; border-bottom: 1px solid var(--border); }
+    .bar i { width: 11px; height: 11px; border-radius: 50%; background: #ff5f57; }
+    .bar i:nth-child(2) { background: #febc2e; } .bar i:nth-child(3) { background: #28c840; }
+    pre { padding: 1rem 1.25rem; white-space: pre-wrap; word-break: break-all; font: inherit; font-size: .9rem; line-height: 1.7; }
+    .p { color: var(--ok); } .e { color: var(--err); } .d { color: var(--muted); }
+    a.btn {
+      display: inline-block; padding: .85rem 1.4rem; border-radius: 12px; text-decoration: none; font-weight: 700;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff;
+    }
+    a.btn:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 3px; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>404</h1>
+    <div class="term" role="img" aria-label="Terminal mostrando que a página não foi encontrada">
+      <div class="bar"><i></i><i></i><i></i></div>
+<pre><span class="p">visitante@jhonne:~$</span> cd <span id="path">/caminho</span>
+<span class="e">bash: cd: arquivo ou diretório não encontrado</span>
+<span class="d"># Esta página não existe (ou mudou de lugar).</span>
+<span class="p">visitante@jhonne:~$</span> cd ~ <span class="d"># tente isto 👇</span></pre>
+    </div>
+    <a class="btn" id="home" href="/">cd ~  →  voltar ao início</a>
+  </main>
+  <script>
+    // Descobre a raiz do site: em github.io de projeto é "/<repo>/"; em domínio próprio, "/"
+    const seg = location.pathname.split("/")[1];
+    const root = location.hostname.endsWith("github.io") && seg ? `/${seg}/` : "/";
+    document.getElementById("home").href = root;
+    document.getElementById("path").textContent = decodeURI(location.pathname);
+  </script>
+</body>
+</html>

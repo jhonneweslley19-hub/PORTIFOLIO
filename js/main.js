@@ -64,7 +64,7 @@ function renderSections() {
 
   render("projects", data.projects, (p) => html`
     <article class="card glow-card project">
-      <h4>${p.title}</h4>
+      <h3>${p.title}</h3>
       <p>${p.description}</p>
       <div class="tags">${p.tags.map((t) => html`<span class="tag">${t}</span>`)}</div>
       <div class="project-links">
@@ -120,12 +120,14 @@ function initScrollFx() {
   $$(".reveal").forEach((el) => io.observe(el));
 
   // Destaca o link da seção visível
-  const links = new Map($$(".nav nav a").map((a) => [a.hash.slice(1), a]));
+  const links = $$(".nav nav a, .mobile-menu a");
   const spy = new IntersectionObserver((entries) => {
     entries.forEach((en) => {
       if (!en.isIntersecting) return;
-      links.forEach((a) => a.removeAttribute("aria-current"));
-      links.get(en.target.id)?.setAttribute("aria-current", "true");
+      links.forEach((a) => {
+        if (a.hash === `#${en.target.id}`) a.setAttribute("aria-current", "true");
+        else a.removeAttribute("aria-current");
+      });
     });
   }, { rootMargin: "-45% 0px -50% 0px" });
   $$("main section[id]").forEach((s) => spy.observe(s));
@@ -175,6 +177,7 @@ renderSections();
 initScrollFx();
 
 $("#theme-toggle").addEventListener("click", toggleTheme);
+$$(".mobile-menu a").forEach((a) => a.addEventListener("click", () => $("#menu").hidePopover?.()));
 $("[data-copy-email]").addEventListener("click", copyEmail);
 
 startNetwork($(".net"));

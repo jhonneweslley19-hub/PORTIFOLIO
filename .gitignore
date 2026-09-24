@@ -1,0 +1,5 @@
+node_modules/
+data/repos.json
+test-results/
+playwright-report/
+_site/

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jhonneweslley19-hub.github.io/PORTIFOLIO/sitemap.xml

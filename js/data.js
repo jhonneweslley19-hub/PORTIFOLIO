@@ -27,6 +27,7 @@ export const profile = {
     linkedin: "https://www.linkedin.com/in/jhonne-w-038b57127",
   },
   githubUser: "jhonneweslley19-hub",
+  cv: "", // caminho do currículo em PDF, ex.: "assets/cv-jhonne.pdf" — ativa o comando `cv` no terminal
   openTo: "Aberto a estágios, projetos open source e colaborações.",
 };
 

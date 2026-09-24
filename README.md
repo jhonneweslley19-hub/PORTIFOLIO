@@ -1,50 +1,65 @@
 # Portfólio · Jhonne Weslley
 
+[![CI](https://github.com/jhonneweslley19-hub/PORTIFOLIO/actions/workflows/ci.yml/badge.svg)](https://github.com/jhonneweslley19-hub/PORTIFOLIO/actions/workflows/ci.yml)
+[![Deploy](https://github.com/jhonneweslley19-hub/PORTIFOLIO/actions/workflows/deploy.yml/badge.svg)](https://github.com/jhonneweslley19-hub/PORTIFOLIO/actions/workflows/deploy.yml)
+
 Portfólio pessoal de **Jhonne Weslley**, estudante de **Engenharia de Software**: projetos, stack, jornada e contato.
 
 🔗 **Site:** https://jhonneweslley19-hub.github.io/PORTIFOLIO/
 
 ## Tecnologia
 
-Sem framework e sem etapa de build: HTML, CSS e **JavaScript moderno (ES Modules)** rodando direto no navegador.
+Sem framework no navegador: HTML, CSS e **JavaScript moderno (ES Modules)**.
 
 | Recurso | Onde |
 |---|---|
 | Todo o conteúdo em um único arquivo de dados | `js/data.js` |
 | Templates seguros com escape automático de HTML (tagged templates) | `js/dom.js` |
 | Rede de nós animada em `<canvas>` que reage ao cursor + efeito de digitação | `js/network.js` |
-| **Terminal interativo** (histórico ↑/↓, autocompletar com Tab, Ctrl+L) | `js/terminal.js` |
-| Repositórios carregados ao vivo da API do GitHub, com cache | `js/github.js` |
+| **Terminal interativo** (`help`, `neofetch`, histórico ↑/↓, Tab, Ctrl+L) | `js/terminal.js` |
+| Repositórios do GitHub, gerados no deploy com fallback para a API | `js/github.js`, `scripts/fetch-repos.mjs` |
 | Paleta de comandos <kbd>Ctrl</kbd>+<kbd>K</kbd> | `js/palette.js` |
+| Menu do celular com Popover API + `@starting-style` | `index.html`, `css/styles.css` |
 | Tema claro/escuro com View Transitions API | `js/main.js` |
 | Barra de progresso com CSS scroll-driven animations | `css/styles.css` |
 | CSS nesting, `@layer`, `color-mix()`, `oklab` | `css/styles.css` |
-| PWA: instalável e funciona offline | `manifest.webmanifest`, `sw.js` |
-| Deploy automático no GitHub Pages | `.github/workflows/deploy.yml` |
+| Fontes variáveis hospedadas no próprio site (sem Google Fonts) | `assets/fonts/` |
+| PWA offline, com versão de cache carimbada a cada deploy | `sw.js`, `scripts/build.mjs` |
+| SEO: Open Graph com imagem, JSON-LD, sitemap e robots | `index.html`, `assets/og.png` |
+| Página 404 no estilo terminal | `404.html` |
 
-Acessibilidade: navegação por teclado, link "pular para o conteúdo", `aria-live` e suporte a `prefers-reduced-motion`.
+## Qualidade
+
+Cada push roda no GitHub Actions:
+
+- **ESLint** para padronizar o código
+- **Playwright**: testes de ponta a ponta no desktop e no celular (terminal, Ctrl+K, menu, tema, 404, repositórios)
+- **Lighthouse CI**: bloqueia se acessibilidade ou SEO ficarem abaixo de 95
+
+O deploy só acontece se o CI passar. Além disso, a lista de repositórios é atualizada automaticamente todo dia.
 
 ## Como editar
 
 Abra **`js/data.js`**. Campos vazios (`""`) e listas vazias (`[]`) são ocultados automaticamente.
 
-- `profile`: nome, semestre, faculdade, cidade, frases do topo, e-mail e links
+- `profile`: nome, semestre, faculdade, cidade, frases do topo, e-mail, links e `cv` (PDF)
 - `stack`: tecnologias, com status `uso` ou `estudando`
 - `projects`: projetos em destaque (os do GitHub aparecem sozinhos)
 - `timeline`: linha do tempo
 - `certificates`: cursos e certificados
 
-Depois de publicar mudanças, aumente a versão em `sw.js` (`portfolio-v2` → `portfolio-v3`) para que os visitantes recebam a versão nova.
+Mudou o nome ou o cargo? Rode `npm run og` para gerar a imagem de compartilhamento de novo.
 
-## Rodar localmente
+## Comandos
 
 ```bash
-npx serve .
-# ou
-python3 -m http.server 8000
+npm install          # instala as ferramentas de desenvolvimento
+npm start            # servidor local em http://localhost:8080
+npm run lint         # ESLint
+npm test             # testes Playwright (antes, uma vez: npx playwright install chromium)
+npm run build        # gera _site/ como no deploy
+npm run og           # gera assets/og.png
 ```
-
-Abra `http://localhost:8000`. Abrir o `index.html` direto do arquivo não funciona, porque ES Modules exigem um servidor.
 
 ## Publicar
 
