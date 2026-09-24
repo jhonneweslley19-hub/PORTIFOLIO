@@ -65,9 +65,9 @@ export const projects = [
     visual: "pos",
     title: "SaaS de Vendas · Perfumaria",
     summary:
-      "Sistema web de vendas feito para uma perfumaria: ponto de venda, estoque, clientes, despesas e relatórios, no computador ou no celular.",
+      "Sistema web de vendas que serve para qualquer tipo de comércio, pensado inicialmente para perfumaria: ponto de venda, estoque, clientes, despesas e relatórios, no computador ou no celular.",
     problem:
-      "Uma perfumaria de pequeno porte precisava sair do controle em cadernos e planilhas soltas e ter visão clara do que vende, do que entra e do que está acabando no estoque.",
+      "A ideia nasceu da venda de perfumes: era preciso registrar vendas, acompanhar o estoque e saber o que entra e o que sai. Em vez de algo preso a um único ramo, o sistema foi construído para vender qualquer tipo de produto.",
     solution:
       "Um sistema com ponto de venda, estoque com leitor de código de barras pela câmera do celular, cadastro de clientes, despesas, dashboard com gráficos e relatórios em PDF, com uma API em Node.js no Firebase.",
     highlights: [
