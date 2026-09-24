@@ -73,6 +73,14 @@ export const stack = [
  */
 export const projects = [
   {
+    title: "Calculadora Nutri",
+    description:
+      "Transforma uma receita em rótulo nutricional no padrão ANVISA (IN 75/2020), com exportação em PNG/PDF. Migrei uma planilha com Apps Script para um app web, corrigi dois erros de cálculo (cobertos por testes) e criei uma busca no USDA com tradução PT→EN e ranking de resultados, protegida numa Edge Function.",
+    tags: ["React", "TypeScript", "Supabase", "Tailwind", "Vitest"],
+    repo: "https://github.com/jhonneweslley19-hub/APP-CALCULADORANUTRI",
+    demo: "", // coloque aqui a URL da Vercel quando quiser mostrar o app no ar
+  },
+  {
     title: "Portfólio pessoal",
     description:
       "Este site. JavaScript puro com ES Modules, terminal interativo, paleta de comandos, tema com View Transitions, PWA offline e deploy automático via GitHub Actions.",
