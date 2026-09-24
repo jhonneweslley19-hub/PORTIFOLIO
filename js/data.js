@@ -78,7 +78,7 @@ export const projects = [
     ],
     tags: ["JavaScript", "Node.js", "Express", "Firebase", "Jest"],
     uses: ["HTML", "CSS", "PWA", "Git e GitHub", "Desenvolvimento com IA"],
-    repo: "", // link do repositório público, quando estiver criado
+    repo: "https://github.com/jhonneweslley19-hub/MIni-Saas-de-venda",
     demo: "",
   },
   {
