@@ -9,15 +9,15 @@
   <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
   <meta name="color-scheme" content="dark light" />
 
-  <link rel="canonical" href="https://jhonneweslley19-hub.github.io/PORTIFOLIO/" />
+  <link rel="canonical" href="https://portifolio-swiftcod.vercel.app/" />
 
   <!-- Prévia ao compartilhar (LinkedIn, WhatsApp, X…) -->
   <meta property="og:type" content="profile" />
   <meta property="og:locale" content="pt_BR" />
-  <meta property="og:url" content="https://jhonneweslley19-hub.github.io/PORTIFOLIO/" />
+  <meta property="og:url" content="https://portifolio-swiftcod.vercel.app/" />
   <meta property="og:title" content="Jhonne Weslley · Engenharia de Software" />
   <meta property="og:description" content="Estudante de Engenharia de Software na Estácio. Projetos, competências e contato." />
-  <meta property="og:image" content="https://jhonneweslley19-hub.github.io/PORTIFOLIO/assets/og.png" />
+  <meta property="og:image" content="https://portifolio-swiftcod.vercel.app/assets/og.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Jhonne Weslley — Engenharia de Software" />
@@ -29,7 +29,7 @@
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Jhonne Weslley",
-    "url": "https://jhonneweslley19-hub.github.io/PORTIFOLIO/",
+    "url": "https://portifolio-swiftcod.vercel.app/",
     "jobTitle": "Estudante de Engenharia de Software",
     "alumniOf": { "@type": "CollegeOrUniversity", "name": "Estácio" },
     "sameAs": [
@@ -44,15 +44,7 @@
   <link rel="preload" href="assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="css/styles.css" />
 
-  <script>
-    // Aplica o tema salvo antes da renderização (evita "flash")
-    document.documentElement.classList.add("js");
-    try {
-      const t = localStorage.getItem("theme");
-      if (t) document.documentElement.dataset.theme = t;
-      else if (matchMedia("(prefers-color-scheme: light)").matches) document.documentElement.dataset.theme = "light";
-    } catch {}
-  </script>
+  <script src="js/boot.js"></script>
   <script type="module" src="js/main.js"></script>
 </head>
 <body>

@@ -1,11 +1,10 @@
 # Portfólio · Jhonne Weslley
 
 [![CI](https://github.com/jhonneweslley19-hub/PORTIFOLIO/actions/workflows/ci.yml/badge.svg)](https://github.com/jhonneweslley19-hub/PORTIFOLIO/actions/workflows/ci.yml)
-[![Deploy](https://github.com/jhonneweslley19-hub/PORTIFOLIO/actions/workflows/deploy.yml/badge.svg)](https://github.com/jhonneweslley19-hub/PORTIFOLIO/actions/workflows/deploy.yml)
 
 Portfólio pessoal de **Jhonne Weslley**, estudante de **Engenharia de Software**: projetos, stack, jornada e contato.
 
-🔗 **Site:** https://jhonneweslley19-hub.github.io/PORTIFOLIO/
+🔗 **Site:** https://portifolio-swiftcod.vercel.app/
 
 ## Tecnologia
 
@@ -35,16 +34,17 @@ Sem framework no navegador: HTML, CSS e **JavaScript moderno (ES Modules)**.
 | PWA offline, com versão de cache carimbada a cada deploy | `sw.js`, `scripts/build.mjs` |
 | SEO: Open Graph com imagem, JSON-LD, sitemap e robots | `index.html`, `assets/og.png` |
 | Página 404 no estilo terminal | `404.html` |
+| Cabeçalhos de segurança (CSP sem scripts inline, `nosniff`, `Referrer-Policy`, `Permissions-Policy`) | `vercel.json` |
 
 ## Qualidade
 
 Cada push roda no GitHub Actions:
 
 - **ESLint** para padronizar o código
-- **Playwright**: testes de ponta a ponta no desktop e no celular (terminal, Ctrl+K, menu, tema, 404, repositórios)
+- **Playwright**: testes de ponta a ponta no desktop e no celular (terminal, Ctrl+K, menu, tema, 404, repositórios), incluindo um teste que aplica a CSP de produção e falha se ela bloquear algo
 - **Lighthouse CI**: bloqueia se acessibilidade ou SEO ficarem abaixo de 95
 
-O deploy só acontece se o CI passar. Além disso, a lista de repositórios é atualizada automaticamente todo dia.
+A Vercel publica cada push na `main`. A lista de repositórios do GitHub é gerada a cada deploy.
 
 ## Como editar
 
@@ -71,6 +71,4 @@ npm run og           # gera assets/og.png
 
 ## Publicar
 
-1. Faça o merge na branch `main`.
-2. No GitHub: **Settings → Pages → Source: GitHub Actions**.
-3. O site fica em `https://jhonneweslley19-hub.github.io/PORTIFOLIO/`.
+O site é publicado pela **Vercel** (configuração em `vercel.json`): todo push na `main` vai para o ar em https://portifolio-swiftcod.vercel.app/.

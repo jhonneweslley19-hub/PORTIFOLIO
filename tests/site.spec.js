@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import { test, expect } from "@playwright/test";
 
 // A API do GitHub é simulada: os testes não dependem de rede nem do limite de requisições.
@@ -68,6 +69,44 @@ test("página 404 aponta para o início", async ({ page }) => {
   await page.goto("/404.html");
   await expect(page.locator("h1")).toHaveText("404");
   await expect(page.locator("#home")).toHaveAttribute("href", "/");
+  await expect(page.locator("#path")).toHaveText(/^\/404/);
+});
+
+// Aplica os mesmos cabeçalhos do vercel.json ao servidor local e falha se a CSP bloquear algo.
+const siteHeaders = JSON.parse(readFileSync("vercel.json", "utf8"))
+  .headers.find((h) => h.source === "/(.*)").headers;
+
+test("a CSP de produção não bloqueia nada do site", async ({ page, isMobile }) => {
+  await page.route(/^http:\/\/localhost:\d+\//, async (route) => {
+    const res = await route.fetch();
+    const headers = { ...res.headers() };
+    for (const { key, value } of siteHeaders) headers[key.toLowerCase()] = value;
+    await route.fulfill({ response: res, headers });
+  });
+  await page.addInitScript(() => {
+    window.__csp = [];
+    addEventListener("securitypolicyviolation", (e) => window.__csp.push(`${e.violatedDirective} ${e.blockedURI}`));
+  });
+
+  await page.goto("/");
+  await expect(page.locator('[data-render="repos"] .repo')).toHaveCount(2);
+  await expect(page.locator("html")).toHaveClass(/\bjs\b/);
+  await page.locator('[data-project="calculadora-nutri"]').first().click();
+  await expect(page.locator(".drawer h2")).toBeVisible();
+  await page.keyboard.press("Escape");
+  await page.locator("#term-in").fill("neofetch");
+  await page.locator("#term-in").press("Enter");
+  await expect(page.locator(".term-out")).toContainText("visitante");
+  if (!isMobile) {
+    await page.keyboard.press("Control+k");
+    await expect(page.locator("dialog.palette")).toBeVisible();
+    await page.keyboard.press("Escape");
+  }
+  expect(await page.evaluate(() => window.__csp)).toEqual([]);
+
+  await page.goto("/404.html");
+  await expect(page.locator("#path")).toHaveText(/^\/404/);
+  expect(await page.evaluate(() => window.__csp)).toEqual([]);
 });
 
 test.describe("desktop", () => {

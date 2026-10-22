@@ -2,9 +2,7 @@ name: CI
 
 on:
   push:
-    branches-ignore: [main] # na main o CI roda dentro do deploy
   pull_request:
-  workflow_call:
 
 permissions:
   contents: read

@@ -48,12 +48,6 @@
     </div>
     <a class="btn" id="home" href="/">cd ~  →  voltar ao início</a>
   </main>
-  <script>
-    // Descobre a raiz do site: em github.io de projeto é "/<repo>/"; em domínio próprio, "/"
-    const seg = location.pathname.split("/")[1];
-    const root = location.hostname.endsWith("github.io") && seg ? `/${seg}/` : "/";
-    document.getElementById("home").href = root;
-    document.getElementById("path").textContent = decodeURI(location.pathname);
-  </script>
+  <script src="/js/not-found.js"></script>
 </body>
 </html>
