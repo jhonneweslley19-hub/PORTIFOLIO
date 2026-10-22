@@ -666,7 +666,7 @@
     font-family: var(--font-mono); font-size: .85rem; line-height: 1.65; cursor: text;
   }
   .term-out {
-    white-space: pre-wrap; word-break: break-word;
+    white-space: pre-wrap; overflow-wrap: anywhere;
     .cmd { color: #fff; }
     .pr { color: #3ecf8e; }
     .hl { color: #9fb0ff; }
