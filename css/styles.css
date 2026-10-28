@@ -182,8 +182,8 @@
     display: flex; align-items: center; gap: .6rem; text-decoration: none; font-weight: 600; font-size: .95rem;
   }
   .brand-mark {
-    display: block; width: 27px; height: 36px; border-radius: 6px; object-fit: cover; flex: none;
-    background: var(--surface-2); box-shadow: 0 0 0 1px var(--border-strong);
+    display: grid; place-items: center; width: 30px; height: 30px; border-radius: 8px;
+    background: var(--text); color: var(--bg); font-size: .75rem; font-weight: 700; letter-spacing: .02em;
   }
   .nav-actions { display: flex; gap: .5rem; align-items: center; }
 
@@ -585,7 +585,16 @@
     h3 { font-size: 1.05rem; }
     .hint { font-size: .85rem; color: var(--muted); }
   }
-  .tile-about { grid-area: about; padding: 2rem; align-content: center; }
+  .tile-about {
+    grid-area: about; padding: 2rem; align-content: center; align-items: center;
+    grid-template-columns: minmax(140px, 210px) minmax(0, 1fr); column-gap: 1.75rem;
+    @media (max-width: 560px) { grid-template-columns: minmax(0, 1fr); row-gap: 1.25rem; padding: 1.5rem; }
+  }
+  .about-photo {
+    width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover;
+    border-radius: calc(var(--radius) - 4px); border: 1px solid var(--border); background: var(--surface-2);
+    @media (max-width: 560px) { width: min(100%, 220px); }
+  }
   .about-text p { font-size: 1.08rem; & + p { margin-top: 1rem; } }
   .tile-edu { grid-area: edu; }
   .tile-status {
