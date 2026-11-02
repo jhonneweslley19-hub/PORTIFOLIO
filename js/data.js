@@ -17,9 +17,10 @@ export const profile = {
   headline: "Construo aplicações web que resolvem problemas reais.",
   tagline:
     "Estudante de Engenharia de Software na Estácio. Crio aplicações web com o apoio de ferramentas de IA enquanto aprofundo os fundamentos no curso.",
+  aboutLead: "Gosto de transformar processos manuais em software simples de usar.", // frase de destaque do "Sobre"
   about: [
-    "Sou estudante de Engenharia de Software na Estácio, no 2º período. Gosto de pegar um processo manual ou confuso e transformá-lo em software simples de usar. Foi o que fiz com a Calculadora Nutri, que substituiu uma planilha cheia de fórmulas por uma aplicação web testada.",
-    "Já concluí disciplinas de redes, segurança da informação, computação em nuvem e programação. Agora estou me aprofundando em banco de dados, desenvolvimento web e Python. Busco um estágio para crescer com um time e entregar código de qualidade.",
+    "Sou estudante de Engenharia de Software na Estácio, no 2º período. Foi assim com a Calculadora Nutri: uma planilha cheia de fórmulas virou uma aplicação web com cálculos testados.",
+    "Já concluí disciplinas de redes, segurança da informação, computação em nuvem e programação. Agora estudo banco de dados, desenvolvimento web e Python, e busco um estágio para crescer com um time.",
   ],
   email: "jhonne.weslley19@gmail.com",
   links: {

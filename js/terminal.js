@@ -29,7 +29,7 @@ export function initTerminal({ profile, skills, learning, projects, education, c
     },
     sobre: {
       desc: "quem é o Jhonne",
-      run: () => html`${profile.about.map((p) => html`${p}\n\n`)}`,
+      run: () => html`${[profile.aboutLead, ...profile.about].filter(Boolean).map((p) => html`${p}\n\n`)}`,
     },
     whoami: {
       desc: "resumo rápido",

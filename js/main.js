@@ -89,6 +89,14 @@ function renderSections() {
 
   render("about", profile.about, (p) => html`<p>${p}</p>`);
 
+  // Números do "Sobre", sempre calculados a partir de data.js (nada digitado à mão)
+  const doneCourses = data.curriculum.filter((p) => p.status === "done").flatMap((p) => p.courses).length;
+  render("about-facts", [
+    [data.projects.length, "projetos em destaque"],
+    [doneCourses, "disciplinas concluídas"],
+    [profile.semester.split(" ")[0], "período do curso"],
+  ].filter(([n]) => n), ([n, label]) => html`<li><strong>${n}</strong><span>${label}</span></li>`);
+
   // Formação: uma aba por período, abrindo no período em andamento
   const stateLabel = { done: "concluído", current: "em andamento" };
   const curriculum = $('[data-render="curriculum"]');
